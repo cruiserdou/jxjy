@@ -40,64 +40,43 @@ Ext.define('App.view.examinees.info.Grid', {
             '<tr>',
                 '<td>身份证号</td><td colspan="5"><span id="apply_form_id_card" style="width:150px;">{card}</span></td>' ,
             '</tr>',
-                '<tr><td>驾驶证准驾车型</td><td colspan="2"><span  style="width:60px;" >{lictype}</span></td>' +
-                '<td>初领驾驶证日期</td><td colspan="3"><span  style="width:160px;">{licdt}</span></td>',
-            '</tr>',
             '<tr>',
-            '<td>申请种类</td><td colspan="3">',
-            '<input style="width:60px;" name="applytp"  type="radio" disabled value="初领" <tpl if="this.checkapplytp_Y(applytp)">checked="true"</tpl>/>初领',
-            '<td style="border-left: none;" colspan="3"><input style="width:60px;" name="applytp"  type="radio" disabled value="增驾" <tpl if="this.checkapplytp_N(applytp)">checked="true"</tpl>/>增驾',
-            '</td>',
-            '</tr>',
-            '<tr>',
-            ' <td>原从业资格证件号</td><td colspan="6"><span  style="width:98px;" >{qulfnum}</span></td>',
+            ' <td>原从业资格证件号</td><td colspan="6"><span  style="width:98px;" >{lictype}</span></td>',
             '</tr>',
             '<td>申请类别</td><td colspan="6">',
             '<input type="checkbox" disabled name="licmd" value="道路旅客运输" <tpl if="this.checklicmd_Y(licmd)">checked="true"</tpl>/>道路旅客运输&nbsp;',
             '<input type="checkbox" disabled name="licmd_goods" value="道路货物运输" <tpl if="this.checklicmd_N(licmd_goods)">checked="true"</tpl>/>道路货物运输&nbsp;',
+            '<input type="checkbox" disabled name="checklist1" value="道路危险货物运输" <tpl if="this.checkchecklist1(checklist1)">checked="true"</tpl>/>道路危险货物运输&nbsp;',
+            '<input type="checkbox" disabled name="checklist2" value="出租客运" <tpl if="this.checkchecklist2(checklist2)">checked="true"</tpl>/>出租客运&nbsp;',
             '</td>',
-//            '</td>',
             '</tr>',
             '<tr>',
             ' <td>材料清单<span style="color: red">*</span></td><td colspan="6">',
-            '<input type="checkbox" disabled name="checklist1" value="身份证明原件" <tpl if="this.checkchecklist1(checklist1)">checked="true"</tpl>/>身份证明原件&nbsp;',
-            '<input type="checkbox" disabled name="checklist2" value="身份证明复印件" <tpl if="this.checkchecklist2(checklist2)">checked="true"</tpl>/>身份证明复印件&nbsp;',
-            '<input type="checkbox" disabled name="checklist3" value="驾驶证原件" <tpl if="this.checkchecklist3(checklist3)">checked="true"</tpl>/>驾驶证原件&nbsp;',
-            '<input type="checkbox" disabled name="checklist4" value="驾驶证复印件" <tpl if="this.checkchecklist4(checklist4)">checked="true"</tpl>/>驾驶证复印件&nbsp;',
-            '<input type="checkbox" disabled name="checklist5" value="无重大以上责任事故记录证明" <tpl if="this.checkchecklist5(checklist5)">checked="true"</tpl>/>无重大以上责任事故记录证明&nbsp;',
+            '<input type="checkbox" disabled name="checklist3" value="驾驶员及复印件" <tpl if="this.checkchecklist3(checklist3)">checked="true"</tpl>/>驾驶员及复印件&nbsp;',
+            '<input type="checkbox" disabled name="checklist4" value="身份证及复印件" <tpl if="this.checkchecklist4(checklist4)">checked="true"</tpl>/>身份证及复印件&nbsp;',
+            '<input type="checkbox" disabled name="checklist5" value="从业资格证及复印件" <tpl if="this.checkchecklist5(checklist5)">checked="true"</tpl>/>从业资格证及复印件&nbsp;',
             '</td>',
             '</tr>',
             '<tr>',
-            '<td>承&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp诺</td><td colspan="6"><p>本人承诺上述所有内容真实、有效、并承担由此产生的法律责任</p>',
+            '<td>承&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp诺</td><td colspan="6"><p>本人承诺所提供的继续再教育信息及相关材料真实、有效、并承担由此产生的法律责任。</p>',
             '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;驾驶员签字：<span style="width:98px;">{promise}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                '日期：<input type="date" name="promisedt"  value="{promisedt}" />',
+                '日期：<span   style="width:200px;">{promisedt}</span>',
+            '</tr>',
+            '</tr>',
+            ' <td>继续教育培训机构</td><td colspan="6"><span    style="width:60px;" >{drvschool}</span></td>',
+            '</tr>',
+            '</tr>',
+            ' <td>参加继续教育时间</td><td colspan="6"><span   style="width:200px;">{st_tk_dt}</span> &nbsp;至 &nbsp;    <span   style="width:200px;">{end_tk_dt}</span></td>',
+            '</tr>',
+            '</tr>',
+            ' <td>参加继续周期起止年月</td><td colspan="6"><span   style="width:200px;">{zq_st_tk_dt}</span> &nbsp;至 &nbsp;    <span   style="width:200px;">{zq_end_tk_dt}</span></td>',
             '</tr>',
             '<tr>',
-            '<td rowspan="5">考试记录</td><td colspan="2">成绩</td><td colspan="2">考核员</td><td colspan="2">考核员</td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><span  type="text" name="score1" /></td><td colspan="2"><span  type="text" name="pa1"></td><td colspan="2"><span  type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><span  type="text" name="score1" /></td><td colspan="2"><span  type="text" name="pa2"></td><td colspan="2"><span  type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><span  type="text" name="score1" /></td><td colspan="2"><span  type="text" name="pa3"></td><td colspan="2"><span  type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><span  type="text" name="score1" /></td><td colspan="2"><span  type="text" name="pa4"></td><td colspan="2"><span  type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            ' <td>道路运输管理机构意见</td><td colspan="6">（盖章）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  type="date" /></td>',
-            '</tr>',
-            '<tr>',
-            '<td rowspan="2">从业资格证发放</td>',
-            '<td>发放人（签字）</td><td colspan="2"><span  type="text"></td><td>日期</td><td colspan="2"><span  type="date" /></td>',
-            '</tr>',
-            '<tr>',
-            '<td>领取人（签字）</td><td colspan="2"><span  type="text"></td><td>日期</td><td colspan="2"><span  type="date" /></td>',
+            '<td rowspan="2">继续教育培训机构意见</td>',
+            '<td colspan="6"><span   style="width:600px; height:100px">{remark}</span></td>',
             '</tr>',
             '</table>',
+            '<p  style="text-indent:24px;">说明：此表由道路运输驾驶员继续教育培训机构保存</p>',
             '</form>',
             '</div>',
             {
@@ -164,29 +143,29 @@ Ext.define('App.view.examinees.info.Grid', {
             {text: '考生状态', width: 80, dataIndex: 'status'},
             {text: '姓名', width: 90, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
-            {text: '身份证号', width: 120, dataIndex: 'card'},
+            {text: '身份证号', width: 200, dataIndex: 'card'},
             {text: '驾校名称', width: 130, dataIndex: 'drvschool',hidden:true},
-            {text: '申请种类', width: 80, dataIndex: 'applytp'},
+            //{text: '申请种类', width: 80, dataIndex: 'applytp'},
             {text: '照片', width: 160, dataIndex: 'photo',hidden:true},
             {text: '考生联系地址', width: 150, dataIndex: 'address'},
-            {text: '准驾车型', width: 80, dataIndex: 'lictype'},
-            {text: '驾照初领日期', width: 120, dataIndex: 'licdt'},
-            {text: '资格类别', width: 160,
-                      renderer:function(v,m,record){
-                var s_licmd= record.get('licmd');
-                var s_licmd_goods= record.get('licmd_goods');
-                 if(s_licmd!=null && s_licmd_goods!=null)
-                     return s_licmd + s_licmd_goods;
-                          else if(s_licmd=="")
-                              return s_licmd_goods;
-                          else return s_licmd;
-        }},
+        //    {text: '准驾车型', width: 80, dataIndex: 'lictype'},
+        //    {text: '驾照初领日期', width: 120, dataIndex: 'licdt'},
+        //    {text: '资格类别', width: 160,
+        //              renderer:function(v,m,record){
+        //        var s_licmd= record.get('licmd');
+        //        var s_licmd_goods= record.get('licmd_goods');
+        //         if(s_licmd!=null && s_licmd_goods!=null)
+        //             return s_licmd + s_licmd_goods;
+        //                  else if(s_licmd=="")
+        //                      return s_licmd_goods;
+        //                  else return s_licmd;
+        //}},
 
 //            {text: '资格类别', width: 160, dataIndex: 'licmd_goods'},
             {text: '照片', width: 160, dataIndex: 'photo',hidden:true},
-            {text: '打印申请表', flex: 1, dataIndex: 'card', renderer: function(value){
-                return '<a style="color: gray;text-decoration: none;" href="print_apply?card=' + value + '" target="_blank"><i class="fa fa-print"></i>' + ' &nbsp;打印</a>'
-            }},
+            //{text: '打印申请表', flex: 1, dataIndex: 'card', renderer: function(value){
+            //    return '<a style="color: gray;text-decoration: none;" href="print_apply?card=' + value + '" target="_blank"><i class="fa fa-print"></i>' + ' &nbsp;打印</a>'
+            //}},
             {text: '备注', width: 60, dataIndex: 'remark',hidden:true}
         ];
 

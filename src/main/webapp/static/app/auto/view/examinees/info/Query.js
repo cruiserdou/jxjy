@@ -18,20 +18,20 @@ Ext.define('App.view.examinees.info.Query', {
             dock: 'top',
             border: true,
             items: [
-                {
-                    text: '批量打印',
-                    iconCls: 'icon_edit',
-                    handler: function () {
-
-                        Ext.Msg.confirm('信息', '确定要打印？', function (btn) {
-                            if (btn == 'yes') {
-//                                window.location.target="_blank";
-
-                                window.open("print_apply_n", "_blank")
-                            }
-                        });
-                    }
-                },
+//                {
+//                    text: '批量打印',
+//                    iconCls: 'icon_edit',
+//                    handler: function () {
+//
+//                        Ext.Msg.confirm('信息', '确定要打印？', function (btn) {
+//                            if (btn == 'yes') {
+////                                window.location.target="_blank";
+//
+//                                window.open("print_apply_n", "_blank")
+//                            }
+//                        });
+//                    }
+//                },
                 {
                     text: '刷新',
                     iconCls: 'icon_table_refresh',

@@ -12,14 +12,12 @@ Ext.define('App.view.examinees.apply.Applyf', {
         '<tr>',
         '<td>姓名<span style="color: red">*</span></td><td><input id="apply_form_id_name" style="width:60px;" name="name"  type="text" value="{name}"/></td>',
         '<td>性别<span style="color: red">*</span></td><td>' +
-//        '<input type="radio" name="sex" value="男" />男&nbsp;&nbsp;',
-//        '<input type="radio" name="sex" value="女" />女',
             '<select id="apply_form_id_sex"  name="sex" size="1"  style="margin:-2;width:100%;height:100%;font-size:13px;background:#FFFFFF">',
             '<option name="sex" value="男" selected="">男</option>',
             '<option name="sex" value="女" >女</option>',
         '</select>',
         '</td>',
-        '<td>电话<span style="color: red">*</span></td><td><input id="apply_form_id_education" style="width:60px;" name="education"  type="text" value="{education}"/></td>',
+        '<td>电话<span style="color: red">*</span></td><td><input id="apply_form_id_education" style="width:100px;" name="education"  type="text" value="{education}"/></td>',
         '</td>',
         '<td style="width:120px;" rowspan="4">',
         '<img onclick="pub_upload_file(\'apply_form_img\')" src="static/upload/per.png?id=<$new Date()$>" id="apply_form_img" name="photo" value="{photo}" src="" style="width: 136px; height: 120px;" title="点击上传照片"  alt="点击上传照片"/>',
@@ -35,13 +33,13 @@ Ext.define('App.view.examinees.apply.Applyf', {
             '<td>身份证号<span style="color: red">*</span></td><td colspan="5"><input  onblur="card_check()" id="apply_form_id_card" style="width:150px;" name="card"  type="text" value="{card}"/></td>',
         '</tr>',
         '<tr>',
-        ' <td>原从业资格证件号</td><td colspan="6"><input style="width:98px;" name="qulfnum"  type="text" value="{qulfnum}"/></td>',
+        ' <td>原从业资格证件号<span style="color: red">*</span></td><td colspan="6"><input style="width:98px;"  id="apply_form_id_lictype"    name="lictype"  type="text" value="{lictype}"/></td>',
         '</tr>',
         ' <td>申请类别<span style="color: red">*</span></td><td colspan="6">',
-        '<input type="checkbox" name="checklist1" value="道路旅客运输" />道路旅客运输&nbsp;',
-        '<input type="checkbox" name="checklist2" value="道路货物运输"/>道路货物运输&nbsp;',
-        '<input type="checkbox" name="checklist3" value="道路危险货物运输"/>道路危险货物运输&nbsp;',
-        '<input type="checkbox" name="checklist4" value="出租客运"/>出租客运&nbsp;',
+        '<input type="checkbox" id="apply_form_id_licmd" name="licmd" value="道路旅客运输" />道路旅客运输&nbsp;',
+        '<input type="checkbox" id="apply_form_id_licmd_goods" name="licmd"  name="licmd_goods" value="道路货物运输"/>道路货物运输&nbsp;',
+        '<input type="checkbox" id="apply_form_id_checklist1" name="licmd"  name="checklist1" value="道路危险货物运输"/>道路危险货物运输&nbsp;',
+        '<input type="checkbox" id="apply_form_id_checklist2" name="licmd"  name="checklist2" value="出租客运"/>出租客运&nbsp;',
         '</td>',
         '</td>',
         '</tr>',
@@ -56,20 +54,20 @@ Ext.define('App.view.examinees.apply.Applyf', {
         '<td colspan="7"><p  style="text-indent:24px;">本人承诺所提供的继续再教育信息及相关材料真实、有效、并承担由此产生的法律责任。</p></br></br>',
         '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
         '驾驶员签字：<input id="apply_form_id_promise" style="width:98px;" name="promise"  type="text" value="{promise}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-            '日期：<input type="date" name="promisedt"  value="{promisedt}" />',
+            '日期：<input type="date"  id="apply_form_id_promisedt" name="promisedt"  value="{promisedt}" />',
         '</td>',
         '</tr>',
         ' <td>继续教育培训机构</td><td colspan="6"><input id="apply_form_drvschool" style="width:60px;" name="drvschool"  type="text" value="{drvschool}"/></td>',
         '</tr>',
         '</tr>',
-        ' <td>参加继续教育时间</td><td colspan="6"><input type="date" name="promisedt"  value="{promisedt}" /> &nbsp;至 &nbsp;    <input type="date" name="promisedt"  value="{promisedt}" /></td>',
+        ' <td>参加继续教育时间</td><td colspan="6"><input type="date"  id="apply_form_id_st_tk_dt" name="st_tk_dt"  value="{st_tk_dt}" /> &nbsp;至 &nbsp;    <input type="date"  id="apply_form_id_end_tk_dt" name="end_tk_dt"  value="{end_tk_dt}" /></td>',
         '</tr>',
         '</tr>',
-        ' <td>参加继续周期起止年月</td><td colspan="6"><input type="date" name="promisedt"  value="{promisedt}" /> &nbsp;至 &nbsp;    <input type="date" name="promisedt"  value="{promisedt}" /></td>',
+        ' <td>参加继续周期起止年月</td><td colspan="6"><input type="date" id="apply_form_id_zq_st_tk_dt" name="zq_st_tk_dt"  value="{zq_st_tk_dt}" /> &nbsp;至 &nbsp;    <input type="date"  id="apply_form_id_zq_end_tk_dt" name="zq_end_tk_dt"  value="{zq_end_tk_dt}" /></td>',
         '</tr>',
         '<tr>',
         '<td rowspan="2">继续教育培训机构意见</td>',
-        '<td colspan="6"><input id="apply_form_drvschool" style="width:600px; height:100px " name="drvschool"  type="text" value="{drvschool}"/></td>',
+        '<td colspan="6"><input id="apply_form_remark" style="width:600px; height:100px " name="remark"  type="text" value="{remark}"/></td>',
         '</tr>',
         '</table>',
         '<p  style="text-indent:24px;">说明：此表由道路运输驾驶员继续教育培训机构保存</p>',
@@ -122,27 +120,27 @@ Ext.define('App.view.examinees.apply.Applyf', {
                                         return;
                                     }
                                     if (document.getElementById("apply_form_id_education").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>学历不能为空！</span>")
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>电话不能为空！</span>")
                                         return;
                                     }
                                     if (document.getElementById("apply_form_id_address").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>住址不能为空！</span>")
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>详细地址不能为空！</span>")
                                         return;
                                     }
                                     if (document.getElementById("apply_form_id_workunit").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>工作单位不能为空！</span>")
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>服务单位不能为空！</span>")
                                         return;
                                     }
 
-                                    if (document.getElementById("apply_form_id_licdt").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期！</span>")
-                                        return;
-                                    }
                                     if (document.getElementById("apply_form_id_lictype").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>驾驶证准驾车型不能为空！</span>")
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>原从业资格证件号不能为空！！</span>")
                                         return;
                                     }
-                                    if(document.getElementById("apply_form_id_licmd").checked==false && document.getElementById("apply_form_id_licmd_goods").checked==false){
+
+                                    if(document.getElementById("apply_form_id_licmd").checked==false
+                                        && document.getElementById("apply_form_id_licmd_goods").checked==false
+                                        && document.getElementById("apply_form_id_checklist1").checked==false
+                                        && document.getElementById("apply_form_id_checklist2").checked==false){
                                         Ext.Msg.alert("提示", "<span style='color: red;'>申请类别不能为空！</span>")
                                         return;
                                     }
@@ -165,25 +163,6 @@ Ext.define('App.view.examinees.apply.Applyf', {
     }
 });
 
-function change_licdt(obj){
-    var form_obt_apply = document.getElementById("apply_form");
-    var date = new Date();
-    var lic_Date=document.getElementById("apply_form_id_licdt").value;
-    var lic_Year = new Date(lic_Date);
-    var result = lic_Year.getFullYear()+'-'+(lic_Year.getMonth()+1)+'-'+lic_Year.getDate()
-
-    result = new Date(result.replace(/-/g, "/"));
-
-    var days = date.getTime() - result.getTime();
-    var time = parseInt(days / (1000 * 60 * 60 * 24));
-    if(time<365){
-        if(document.getElementById("apply_form_id_licmd").checked==true){
-        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不满一年！</span>");
-        document.getElementById("apply_form_id_licmd").checked==false
-        form_obt_apply['licmd'].checked=false;
-        }
-    }
-}
 
 function NumberCheck(num)
 {
@@ -204,45 +183,6 @@ var photo_file="";
 function pub_card_check(card) {
     if (!NumberCheck(document.getElementById('apply_form_id_card').value)) {
         Ext.Msg.alert("提示：", "身份证格式不对！请重新输入。");
-        return;
-    }
-}
-
-function click_licmd() {
-    var form_obt_apply = document.getElementById("apply_form");
-    if (document.getElementById("apply_form_id_licdt").value == "") {
-        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期！</span>")
-        document.getElementById("apply_form_id_licmd").checked==false
-        form_obt_apply['licmd'].checked=false;
-        return;
-    }else{
-        var date = new Date();
-        var lic_Date=document.getElementById("apply_form_id_licdt").value;
-        var lic_Year = new Date(lic_Date);
-        var result = lic_Year.getFullYear()+'-'+(lic_Year.getMonth()+1)+'-'+lic_Year.getDate()
-
-        result = new Date(result.replace(/-/g, "/"));
-
-        var days = date.getTime() - result.getTime();
-        var time = parseInt(days / (1000 * 60 * 60 * 24));
-        if(time<365){
-            Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不满一年！</span>");
-            document.getElementById("apply_form_id_licmd").checked==false
-            form_obt_apply['licmd'].checked=false;
-        }
-    }
-
-}
-
-function click_licmd_goods() {
-
-    if (document.getElementById("apply_form_id_licdt").value == "") {
-        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不能为空！</span>")
-        document.getElementById("apply_form_id_licmd_goods").checked==false
-
-        var form_obt_apply = document.getElementById("apply_form");
-        form_obt_apply['licmd_goods'].checked=false;
-
         return;
     }
 }
@@ -313,7 +253,6 @@ function pub_upload_file(id) {
                                         success: function (form, action) {
                                             Ext.Msg.alert("成功", "保存成功!");
                                             document.getElementById('apply_form_img').src = 'static/upload/'+ cust_id+".jpg";
-                                            //photo_file=action.result.message;
                                             Ext.getCmp('uploadpic_windows').close();
                                         },
                                         failure: function (form, action) {
@@ -354,23 +293,23 @@ function obt_apply_insert() {
             address: form_obt_apply['address'].value,
             workunit: form_obt_apply['workunit'].value,
             card: form_obt_apply['card'].value,
-//            drvschool: form_obt_apply['drvschool'].value,
             lictype: form_obt_apply['lictype'].value,
-            licdt: form_obt_apply['licdt'].value,
-            applytp: form_obt_apply['applytp'].value,
-            qulfnum: form_obt_apply['qulfnum'].value,
+            applytp: "",
             licmd: form_obt_apply['licmd'].checked,
             licmd_goods: form_obt_apply['licmd_goods'].checked,
             photo:photo_file,
-            promise: form_obt_apply['promise'].value,
             checklist1: form_obt_apply['checklist1'].checked,
             checklist2: form_obt_apply['checklist2'].checked,
             checklist3: form_obt_apply['checklist3'].checked,
             checklist4: form_obt_apply['checklist4'].checked,
             checklist5: form_obt_apply['checklist5'].checked,
-//            pxnum: form_obt_apply['pxnum'].value,
+            st_tk_dt: form_obt_apply['st_tk_dt'].value,
+            end_tk_dt: form_obt_apply['end_tk_dt'].value,
+            zq_st_tk_dt: form_obt_apply['zq_st_tk_dt'].value,
+            zq_end_tk_dt: form_obt_apply['zq_end_tk_dt'].value,
+            promise: form_obt_apply['promise'].value,
             promisedt:form_obt_apply['promisedt'].value,
-            remark: '新建'
+            remark: form_obt_apply['remark'].value
         },
         url: 'add_trainers_info',
         success: function () {

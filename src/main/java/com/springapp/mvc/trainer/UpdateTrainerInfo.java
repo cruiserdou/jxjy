@@ -46,7 +46,11 @@ public class UpdateTrainerInfo {
             @RequestParam("checklist5") String checklist5,
             @RequestParam("promise") String promise,
             @RequestParam("status") String status,
-            @RequestParam("remark") String remark
+            @RequestParam("remark") String remark,
+            @RequestParam("st_tk_dt") String st_tk_dt,
+            @RequestParam("end_tk_dt") String end_tk_dt,
+            @RequestParam("zq_st_tk_dt") String zq_st_tk_dt,
+            @RequestParam("zq_end_tk_dt") String zq_end_tk_dt
 
             ) throws Exception{
         DataShop dataShop = new DataShop();

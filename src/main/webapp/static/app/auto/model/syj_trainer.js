@@ -33,7 +33,12 @@ Ext.define('App.model.syj_trainer', {
         {name: 'list'},
         {name: 'right'},
         {name: 'wrong'},
-        {name: 'no'}
+        {name: 'no'},
+        {name: 'st_tk_dt'},
+        {name: 'end_tk_dt'},
+        {name: 'zq_st_tk_dt'},
+        {name: 'zq_end_tk_dt'}
+
     ]
 //    groupField:drvschool
 });

@@ -31,9 +31,9 @@ public class AddTrainerInfo {
             @RequestParam("workunit") String workunit,
 //            @RequestParam("drvschool") String drvschool,
             @RequestParam("lictype") String lictype,
-            @RequestParam("licdt") String licdt,
+//            @RequestParam("licdt") String licdt,
             @RequestParam("applytp") String applytp,
-            @RequestParam("qulfnum") String qulfnum,
+//            @RequestParam("qulfnum") String qulfnum,
             @RequestParam("licmd") String licmd,
             @RequestParam("checklist1") String checklist1,
             @RequestParam("checklist2") String checklist2,
@@ -45,8 +45,11 @@ public class AddTrainerInfo {
             @RequestParam("promisedt") String promisedt,
             @RequestParam("remark") String remark,
             @RequestParam("licmd_goods") String licmd_goods,
-//            @RequestParam(value = "pxnum",required = false) Integer pxnum,
-            HttpSession session
+            @RequestParam("st_tk_dt") String st_tk_dt,
+            @RequestParam("end_tk_dt") String end_tk_dt,
+            @RequestParam("zq_st_tk_dt") String zq_st_tk_dt,
+            @RequestParam("zq_end_tk_dt") String zq_end_tk_dt,
+                    HttpSession session
 
     ) throws Exception{
         DataShop dataShop = new DataShop();
@@ -75,8 +78,8 @@ public class AddTrainerInfo {
             String sql = "insert into work.trainer" +
                     "(name, sex, education, card, address, workunit, drvschool, lictype, licdt, applytp," +
                     " qulfnum, licmd, checklist1, checklist2,checklist3,checklist4,checklist5," +
-                    " promise,photo, status, remark,licmd_goods,qtbh,pxnum,promisedt) " +
-                    " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?, ?, (select  qtbh  from work.qt_cont WHERE   lictype=?), ?, ?)";
+                    " promise,photo, status, remark,licmd_goods,qtbh,pxnum,promisedt,st_tk_dt,end_tk_dt,zq_st_tk_dt,zq_end_tk_dt) " +
+                    " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?, ?, (select  qtbh  from work.qt_cont WHERE   lictype=?), ?, ? , ?, ?, ?, ?)";
 
 
             pst = conn.prepareStatement(sql);
@@ -89,15 +92,10 @@ public class AddTrainerInfo {
             pst.setString(7, drvschool);
             pst.setString(8, lictype);
             java.sql.Date sql_licdt = null;
-            if (licdt!= null && licdt.length() > 2)
-                sql_licdt = java.sql.Date.valueOf(licdt);
             pst.setDate(9, sql_licdt);
             pst.setString(10, applytp);
-            pst.setString(11, qulfnum);
-            if(licmd.equals("true"))
-                pst.setString(12, "道路旅客运输");
-            else
-                pst.setString(12, "");
+            pst.setString(11, "");
+            pst.setString(12, licmd);
             pst.setString(13, checklist1);
             pst.setString(14, checklist2);
             pst.setString(15, checklist3);
@@ -107,24 +105,44 @@ public class AddTrainerInfo {
             pst.setString(19, card+".jpg");
             pst.setString(20, "报名");
             pst.setString(21, remark);
-            if(licmd_goods.equals("true"))
-                pst.setString(22, "道路货物运输");
-            else
-                pst.setString(22, "");
+            pst.setString(22, licmd_goods);
 
-
-            if(licmd.equals("true")  && licmd_goods.equals("true")){
-                pst.setString(23, "客货");
-            }else if(licmd.equals("true")  && licmd_goods.equals("false")){
+            if(licmd.equals("true")  && licmd_goods.equals("false") &&  checklist1.equals("false") && checklist2.equals("false") ){
                 pst.setString(23, "客运");
-            }else if(licmd.equals("false")  && licmd_goods.equals("true")){
+            }
+            if(licmd.equals("false")  && licmd_goods.equals("true") &&  checklist1.equals("false") && checklist2.equals("false") ){
                 pst.setString(23, "货运");
+            }
+            if(licmd.equals("true")  && licmd_goods.equals("true") &&  checklist1.equals("false") && checklist2.equals("false") ){
+                pst.setString(23, "客货");
+            }
+            if(licmd.equals("true")  && licmd_goods.equals("true") &&  checklist1.equals("true") && checklist2.equals("false") ){
+                pst.setString(23, "危险品");
+            }
+            if(licmd.equals("true")  && licmd_goods.equals("false") &&  checklist1.equals("false") && checklist2.equals("true")){
+                pst.setString(23, "出租车");
             }
             pst.setInt(24,pxnum);
             java.sql.Date sql_promisedt = null;
             if (promisedt!= null && promisedt.length() > 2)
                 sql_promisedt = java.sql.Date.valueOf(promisedt);
             pst.setDate(25, sql_promisedt);
+            java.sql.Date sql_st_tk_dt = null;
+            if (st_tk_dt!= null && st_tk_dt.length() > 2)
+                sql_st_tk_dt = java.sql.Date.valueOf(st_tk_dt);
+            pst.setDate(26, sql_st_tk_dt);
+            java.sql.Date sql_end_tk_dt = null;
+            if (end_tk_dt!= null && end_tk_dt.length() > 2)
+                sql_end_tk_dt = java.sql.Date.valueOf(end_tk_dt);
+            pst.setDate(27, sql_end_tk_dt);
+            java.sql.Date sql_zq_st_tk_dt = null;
+            if (zq_st_tk_dt!= null && zq_st_tk_dt.length() > 2)
+                sql_zq_st_tk_dt = java.sql.Date.valueOf(zq_st_tk_dt);
+            pst.setDate(28, sql_zq_st_tk_dt);
+            java.sql.Date sql_zq_end_tk_dt = null;
+            if (zq_end_tk_dt!= null && zq_end_tk_dt.length() > 2)
+                sql_zq_end_tk_dt = java.sql.Date.valueOf(zq_end_tk_dt);
+            pst.setDate(29, sql_zq_end_tk_dt);
             pst.executeUpdate();
 
             dataShop.setSuccess(true);
