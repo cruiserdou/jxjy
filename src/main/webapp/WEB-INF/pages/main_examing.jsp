@@ -86,7 +86,7 @@
     <link type="text/css" rel="stylesheet" href="static/jslib/sweetalert/lib/sweet-alert.css">
     <script>
         //处理考试倒计时事件
-        var maxtime = 60;//半个小时，按秒计算，自己调整!
+        var maxtime = 5;//半个小时，按秒计算，自己调整!
         var timer;
         function CountDown() {
 

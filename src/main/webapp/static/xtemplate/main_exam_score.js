@@ -20,14 +20,14 @@ var sel_exam_Tpl = [
     '<th>身份证号:</th>',
     '<td>{card}</td>',
     '</tr>',
-    '<tr>',
-    '<th>准驾车型:</th>',
-    '<td>{lictype}</td>',
-    '</tr>',
-    '<tr>',
-    '<th>资格类别:</th>',
-    '<td>{licmd}</td>',
-    '</tr>',
+    //'<tr>',
+    //'<th>准驾车型:</th>',
+    //'<td>{lictype}</td>',
+    //'</tr>',
+    //'<tr>',
+    //'<th>资格类别:</th>',
+    //'<td>{licmd}</td>',
+    //'</tr>',
     '</table>',
     '</div>',
 
@@ -91,7 +91,7 @@ function print_trainer_scorew(card) {
 
     //document.location.href="print_trainer_score";
     //document.location.href="http://192.168.3.13:8081/test_mvc/print?card="+card;
-    document.location.href="http://10.47.83.209:8080/test_mvc/print?card="+card;
+    document.location.href="http://192.168.1.252:8080/test_mvc/print?card="+card;
 
 }
 

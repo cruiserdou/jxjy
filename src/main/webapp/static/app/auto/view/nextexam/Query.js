@@ -33,29 +33,7 @@ Ext.define('App.view.nextexam.Query', {
                                         Ext.Ajax.request({
                                             url: 'update_trainer_nexteaxm_info',
                                             params: {
-//                                                "id": id
-//                                                "status": '终审',
-//                                                "name": row.get('name'),
-//                                                "sex": row.get('sex'),
-//                                                "education": row.get('education'),
                                                 "card": row.get('card')
-//                                                "address": row.get('address'),
-//                                                "workunit": row.get('workunit'),
-//                                                "drvschool": row.get('drvschool'),
-//                                                "lictype": row.get('lictype'),
-//                                                "licdt": row.get('licdt'),
-//                                                "applytp": row.get('applytp'),
-//                                                "qulfnum": row.get('qulfnum'),
-//                                                "licmd": row.get('licmd'),
-//                                                "checklist1": row.get('checklist1'),
-//                                                "checklist2": row.get('checklist2'),
-//                                                "checklist3": row.get('checklist3'),
-//                                                "checklist4": row.get('checklist4'),
-//                                                "checklist5": row.get('checklist5'),
-//                                                "promise": row.get('promise'),
-//                                                "remark": row.get('remark'),
-//                                                "licmd_goods": row.get('licmd_goods'),
-//                                                "promisedt": row.get('promisedt')
                                             },
                                             waitMsg: '正在终审数据...',
                                             success: function (form, action) {

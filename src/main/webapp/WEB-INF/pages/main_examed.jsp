@@ -342,21 +342,6 @@
                             panel_status_tpl.tpl = Ext.create('Ext.XTemplate', panel_status_tpl.e_status_tpl);
                             panel_status_tpl.tpl.overwrite(panel_status_tpl.body, {});
 
-//                            st_train_img.load({
-//
-//                                callback: function (records, operation, success) {
-//                                    if (success) {
-//                                        var myarray = new Array();
-//                                        for (var i = 0; i < st_train_img.getCount(); i++) {
-//                                            myarray[i] = st_train_img.getAt(i).getData();
-//                                        }
-//
-//                                        var panel_tpl = Ext.getCmp('e_exam_phone');
-//                                        panel_tpl.tpl = Ext.create('Ext.XTemplate', panel_tpl.e_exam_phone_tpl);
-//                                        panel_tpl.tpl.overwrite(panel_tpl.body, myarray[0]);
-//                                    }
-//                                }
-//                            });
 
                         }
                         sdata.each(function (exam) {
@@ -656,13 +641,13 @@
                                             '<td>{sex}</td>',
                                             '</tr>',
                                             '<tr>',
-                                            '<td>准驾车型</td>',
-                                            '<td>{lictype}</td>',
+                                            '<td>身份证</td>',
+                                            '<td>{card}</td>',
                                             '</tr>',
-                                            '<tr>',
-                                            '<td>资格类别</td>',
-                                            '<td>{licmd}</td>',
-                                            '</tr>',
+//                                            '<tr>',
+//                                            '<td>资格类别</td>',
+//                                            '<td>{licmd}</td>',
+//                                            '</tr>',
                                             '<tr>',
                                             '<td colspan="2" style="padding: 0;text-align: center"><img src="static/upload/{photo}" style="margin: 2px; height: 120px;border: none;"/></td>',
                                             '</tr>',

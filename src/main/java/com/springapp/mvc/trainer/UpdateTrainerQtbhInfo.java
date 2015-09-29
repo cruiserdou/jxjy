@@ -22,6 +22,8 @@ public class UpdateTrainerQtbhInfo {
     public
     @ResponseBody
     DataShop getShopInJSON(
+
+
 //            @RequestParam("id") Integer id,
             @RequestParam("promisedt") String promisedt,
             @RequestParam("name") String name,
@@ -30,11 +32,10 @@ public class UpdateTrainerQtbhInfo {
             @RequestParam("card") String card,
             @RequestParam("address") String address,
             @RequestParam("workunit") String workunit,
-//            @RequestParam("drvschool") String drvschool,
             @RequestParam("lictype") String lictype,
-            @RequestParam("licdt") String licdt,
+//            @RequestParam("licdt") String licdt,
             @RequestParam("applytp") String applytp,
-            @RequestParam("qulfnum") String qulfnum,
+//            @RequestParam("qulfnum") String qulfnum,
             @RequestParam("licmd") String licmd,
             @RequestParam("checklist1") String checklist1,
             @RequestParam("checklist2") String checklist2,
@@ -75,7 +76,8 @@ public class UpdateTrainerQtbhInfo {
                     "       checklist1=?, checklist2=?, checklist3=?, checklist4=?," +
                     "       checklist5=?, promise=?,  status=?, remark=?,promisedt=? ," +
                     "       licmd_goods=?,pxnum=? ," +
-                    "   qtbh=(select  qtbh  from work.qt_cont WHERE   lictype=?) " +
+                    "   qtbh=(select  qtbh  from work.qt_cont WHERE   lictype=?),st_tk_dt=?, " +
+                    "       end_tk_dt=?, zq_st_tk_dt=?, zq_end_tk_dt=? " +
                     " where  card=?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, name);
@@ -85,15 +87,10 @@ public class UpdateTrainerQtbhInfo {
             pst.setString(5, workunit);
             pst.setString(6, lictype);
             Date sql_licdt = null;
-            if (licdt!= null && licdt.length() > 2)
-                sql_licdt = Date.valueOf(licdt);
             pst.setDate(7, sql_licdt);
             pst.setString(8, applytp);
-            pst.setString(9, qulfnum);
-            if(licmd.equals("true"))
-                pst.setString(10, "道路旅客运输");
-            else
-                pst.setString(10, "");
+            pst.setString(9, "");
+            pst.setString(10, licmd);
             pst.setString(11, checklist1);
             pst.setString(12, checklist2);
             pst.setString(13, checklist3);
@@ -107,20 +104,41 @@ public class UpdateTrainerQtbhInfo {
                 sql_promisedt = Date.valueOf(promisedt);
             pst.setDate(19, sql_promisedt);
             pst.setString(20, remark);
-
-            if(licmd_goods.equals("true"))
-                pst.setString(20, "道路货物运输");
-            else
-                pst.setString(20, "");
+                pst.setString(20, licmd_goods);
             pst.setInt(21, pxnum);
-            if(licmd.equals("true")  && licmd_goods.equals("true")){
-                pst.setString(22, "客货");
-            }else if(licmd.equals("true")  && licmd_goods.equals("false")){
+            if(licmd.equals("true")  && licmd_goods.equals("false") &&  checklist1.equals("false") && checklist2.equals("false") ){
                 pst.setString(22, "客运");
-            }else if(licmd.equals("false")  && licmd_goods.equals("true")){
+            }
+            if(licmd.equals("false")  && licmd_goods.equals("true") &&  checklist1.equals("false") && checklist2.equals("false") ){
                 pst.setString(22, "货运");
             }
-            pst.setString(23, card);
+            if(licmd.equals("true")  && licmd_goods.equals("true") &&  checklist1.equals("false") && checklist2.equals("false") ){
+                pst.setString(22, "客货");
+            }
+            if(licmd.equals("true")  && licmd_goods.equals("true") &&  checklist1.equals("true") && checklist2.equals("false") ){
+                pst.setString(22, "危险品");
+            }
+            if(licmd.equals("true")  && licmd_goods.equals("false") &&  checklist1.equals("false") && checklist2.equals("true")){
+                pst.setString(22, "出租车");
+            }
+
+            java.sql.Date sql_st_tk_dt = null;
+            if (st_tk_dt!= null && st_tk_dt.length() > 2)
+                sql_st_tk_dt = java.sql.Date.valueOf(st_tk_dt);
+            pst.setDate(23, sql_st_tk_dt);
+            java.sql.Date sql_end_tk_dt = null;
+            if (end_tk_dt!= null && end_tk_dt.length() > 2)
+                sql_end_tk_dt = java.sql.Date.valueOf(end_tk_dt);
+            pst.setDate(24, sql_end_tk_dt);
+            java.sql.Date sql_zq_st_tk_dt = null;
+            if (zq_st_tk_dt!= null && zq_st_tk_dt.length() > 2)
+                sql_zq_st_tk_dt = java.sql.Date.valueOf(zq_st_tk_dt);
+            pst.setDate(25, sql_zq_st_tk_dt);
+            java.sql.Date sql_zq_end_tk_dt = null;
+            if (zq_end_tk_dt!= null && zq_end_tk_dt.length() > 2)
+                sql_zq_end_tk_dt = java.sql.Date.valueOf(zq_end_tk_dt);
+            pst.setDate(26, sql_zq_end_tk_dt);
+            pst.setString(27, card);
             pst.executeUpdate();
 
 

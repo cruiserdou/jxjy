@@ -44,8 +44,8 @@ Ext.define('App.view.examinees.info.Grid', {
             ' <td>原从业资格证件号</td><td colspan="6"><span  style="width:98px;" >{lictype}</span></td>',
             '</tr>',
             '<td>申请类别</td><td colspan="6">',
-            '<input type="checkbox" disabled name="licmd" value="道路旅客运输" <tpl if="this.checklicmd_Y(licmd)">checked="true"</tpl>/>道路旅客运输&nbsp;',
-            '<input type="checkbox" disabled name="licmd_goods" value="道路货物运输" <tpl if="this.checklicmd_N(licmd_goods)">checked="true"</tpl>/>道路货物运输&nbsp;',
+            '<input type="checkbox" disabled name="licmd" value="道路旅客运输" <tpl if="this.checklicmd(licmd)">checked="true"</tpl>/>道路旅客运输&nbsp;',
+            '<input type="checkbox" disabled name="licmd_goods" value="道路货物运输" <tpl if="this.checklicmd_goods(licmd_goods)">checked="true"</tpl>/>道路货物运输&nbsp;',
             '<input type="checkbox" disabled name="checklist1" value="道路危险货物运输" <tpl if="this.checkchecklist1(checklist1)">checked="true"</tpl>/>道路危险货物运输&nbsp;',
             '<input type="checkbox" disabled name="checklist2" value="出租客运" <tpl if="this.checkchecklist2(checklist2)">checked="true"</tpl>/>出租客运&nbsp;',
             '</td>',
@@ -73,7 +73,7 @@ Ext.define('App.view.examinees.info.Grid', {
             '</tr>',
             '<tr>',
             '<td rowspan="2">继续教育培训机构意见</td>',
-            '<td colspan="6"><span   style="width:600px; height:100px">{remark}</span></td>',
+            '<td colspan="6"><span   style="width:600px; height:300px">{remark}</span></td>',
             '</tr>',
             '</table>',
             '<p  style="text-indent:24px;">说明：此表由道路运输驾驶员继续教育培训机构保存</p>',
@@ -81,17 +81,11 @@ Ext.define('App.view.examinees.info.Grid', {
             '</div>',
             {
 
-                checkapplytp_Y : function (applytp) {
-                    return applytp =="初领";
+                checklicmd : function (licmd) {
+                    return licmd == "true";
                 },
-                checkapplytp_N : function (applytp) {
-                    return applytp !="初领";
-                },
-                checklicmd_Y : function (licmd) {
-                    return licmd == "道路旅客运输";
-                },
-                checklicmd_N : function (licmd_goods) {
-                    return licmd_goods == "道路货物运输";
+                checklicmd_goods : function (licmd_goods) {
+                    return licmd_goods == "true";
                 },
                 checkchecklist1 : function (checklist1) {
                     return checklist1=="true";

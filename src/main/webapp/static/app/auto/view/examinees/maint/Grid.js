@@ -29,91 +29,60 @@ Ext.define('App.view.examinees.maint.Grid', {
             '<option name="sex" value="女"  <tpl if="this.checkSex_f(sex)">selected=""</tpl> >女</option>',
             '</select>',
             '</td>',
-            '<td>电话<span style="color: red">*</span></td><td><input id="apply_form_id_education" style="width:60px;" name="education"  type="text" value="{education}"/></td>',
+            '<td>电话<span style="color: red">*</span></td><td><input id="apply_form_id_education" style="width:100px;" name="education"  type="text" value="{education}"/></td>',
             '<td style="width:120px;" rowspan="4">',
             '<img onclick="pub_upload_file_edit(\'{card}\',\'apply_form_img_edit\')" id="apply_form_img_edit" name="photo" value="{photo}"   style="width: 136px; height: 139px;" src="static/upload/{photo}?id=<$new Date()$>"  alt="点击上传照片"/>',
             '</td></tr>',
-            '<tr>',
-            ' <td>服务单位<span style="color: red">*</span></td><td colspan="5"><input id="apply_form_id_workunit"  style="width:90px;" name="workunit"  type="text" value="{workunit}"/></td>',
+             '<tr>',
+            '<td>服务单位<span style="color: red">*</span></td><td colspan="5"><input id="apply_form_id_workunit"   style="width:450px;" name="workunit"  type="text" value="{workunit}"/></td>',
             '</tr>',
             '<tr>',
-            '<td>详细地址<span style="color: red">*</span></td><td colspan="5"><input id="apply_form_id_address"  style="width:90px;" name="address"  type="text" value="{address}"/></td>',
+            ' <td>详细地址<span style="color: red">*</span></td><td colspan="5"><input id="apply_form_id_address"  style="width:450px;" name="address"  type="text" value="{address}"/></td>',
             '</tr>',
             '<tr>',
-                '<td>身份证号<span style="color: red">*</span></td><td colspan="5"><span id="apply_form_id_card_edit"  style="width:150px;" name="card"  type="text" value="{card}">{card}</span></td>' +
-                //'<td><input style="visibility:hidden" id="apply_form_id_pxnum"  name="pxnum"  type="text" value="{pxnum}"/></td>',
-            '</tr>',
-                '<tr><td>驾驶证准驾车型<span style="color: red">*</span></td><td colspan="2">' +
-                '<select id="apply_form_id_lictype" name="lictype"  size="1"  style="margin:-2;width:100%;height:100%;font-size:13px;background:#FFFFFF">',
-            '<option name="lictype" value="A1" <tpl if="this.checktype_A1(lictype)">selected=""</tpl>>A1</option>',
-            '<option name="lictype" value="A2" <tpl if="this.checktype_A2(lictype)">selected=""</tpl>>A2</option>',
-            '<option name="lictype" value="A3" <tpl if="this.checktype_A3(lictype)">selected=""</tpl>>A3</option>',
-            '<option name="lictype" value="B1" <tpl if="this.checktype_B1(lictype)">selected=""</tpl>>B1</option>',
-            '<option name="lictype" value="B2" <tpl if="this.checktype_B2(lictype)">selected=""</tpl>>B2</option>',
-            '<option name="lictype" value="C1" <tpl if="this.checktype_C1(lictype)">selected=""</tpl>>C1</option>',
-            '<option name="lictype" value="C2" <tpl if="this.checktype_C2(lictype)">selected=""</tpl>>C2</option>',
-            '<option name="lictype" value="C3" <tpl if="this.checktype_C3(lictype)">selected=""</tpl>>C3</option>',
-            '</select>',
-                '</td>' +
-                '<td>初领驾驶证日期<span style="color: red">*</span></td><td colspan="3"><input onchange="change_licdt_edit()"   style="width:160px;" id="apply_form_id_licdt_edit" name="licdt"  type="date" value="{licdt}"/></td>',
-
+            '<td>身份证号<span style="color: red">*</span></td><td colspan="5"><span id="apply_form_id_card_edit"  style="width:150px;" name="card"  type="text" value="{card}">{card}</span></td>' +
             '</tr>',
             '<tr>',
-            '<td>申请种类<span style="color: red">*</span></td><td colspan="3">',
-            '<input style="width:60px;" name="applytp"  type="radio" value="初领" <tpl if="this.checkapplytp_Y(applytp)">checked="true"</tpl>/>初领',
-            '<td style="border-left: none;" colspan="3"><input style="width:60px;" name="applytp"  type="radio" value="增驾" <tpl if="this.checkapplytp_N(applytp)">checked="true"</tpl>/>增驾',
-            '</td>',
+            ' <td>原从业资格证件号<span style="color: red">*</span></td><td colspan="6"><input style="width:98px;"  id="apply_form_id_lictype"    name="lictype"  type="text" value="{lictype}"/></td>',
             '</tr>',
             '<tr>',
-            ' <td>原从业资格证件号</td><td colspan="6"><input style="width:98px;" name="qulfnum"  type="text" value="{qulfnum}"/></td>',
-            '</tr>',
             ' <td>申请类别<span style="color: red">*</span></td><td colspan="6">',
-            '<input id="apply_form_id_licmd_edit"   onclick="click_licmd_edit()"     type="checkbox" name="licmd" value="道路旅客运输" <tpl if="this.checklicmd_Y(licmd)">checked="true"</tpl>/>道路旅客运输&nbsp;',
-            '<input  id="apply_form_id_licmd_goods_edit"  onclick="click_licmd_goods_edit()" type="checkbox" name="licmd_goods" value="道路货物运输" <tpl if="this.checklicmd_N(licmd_goods)">checked="true"</tpl>/>道路货物运输&nbsp;',
-            '</td>',
+            '<input type="checkbox" id="apply_form_id_licmd" name="licmd" value="道路旅客运输" <tpl if="this.checklicmd(licmd)">checked="true"</tpl>/>道路旅客运输&nbsp;',
+            '<input type="checkbox" id="apply_form_id_licmd_goods" name="licmd_goods" value="道路货物运输" <tpl if="this.checklicmd_goods(licmd_goods)">checked="true"</tpl>/>道路货物运输&nbsp;',
+            '<input type="checkbox" id="apply_form_id_checklist1" name="checklist1" value="道路危险货物运输" <tpl if="this.checkchecklist1(checklist1)">checked="true"</tpl>/>道路危险货物运输&nbsp;',
+            '<input type="checkbox" id="apply_form_id_checklist2" name="checklist2" value="出租客运" <tpl if="this.checkchecklist2(checklist2)">checked="true"</tpl>/>出租客运&nbsp;',
             '</td>',
             '</tr>',
             '<tr>',
             ' <td>材料清单<span style="color: red">*</span></td><td colspan="6">',
-            '<input type="checkbox" name="checklist1" value="身份证明原件" <tpl if="this.checkchecklist1(checklist1)">checked="true"</tpl>/>身份证明原件&nbsp;',
-            '<input type="checkbox" name="checklist2" value="身份证明复印件" <tpl if="this.checkchecklist2(checklist2)">checked="true"</tpl>/>身份证明复印件&nbsp;',
-            '<input type="checkbox" name="checklist3" value="驾驶证原件" <tpl if="this.checkchecklist3(checklist3)">checked="true"</tpl>/>驾驶证原件&nbsp;',
-            '<input type="checkbox" name="checklist4" value="驾驶证复印件" <tpl if="this.checkchecklist4(checklist4)">checked="true"</tpl>/>驾驶证复印件&nbsp;',
-            '<input type="checkbox" name="checklist5" value="无重大以上责任事故记录证明" <tpl if="this.checkchecklist5(checklist5)">checked="true"</tpl>/>无重大以上责任事故记录证明&nbsp;',
+            '<input type="checkbox" name="checklist3" value="驾驶员及复印件" <tpl if="this.checkchecklist3(checklist3)">checked="true"</tpl>/>驾驶员及复印件&nbsp;',
+            '<input type="checkbox" name="checklist4" value="身份证及复印件" <tpl if="this.checkchecklist4(checklist4)">checked="true"</tpl>/>身份证及复印件&nbsp;',
+            '<input type="checkbox" name="checklist5" value="从业资格证及复印件" <tpl if="this.checkchecklist5(checklist5)">checked="true"</tpl>/>从业资格证及复印件&nbsp;',
+            '</td>',
+            '</tr>',
+
+            '<tr>',
+            '<td colspan="7"><p  style="text-indent:24px;">本人承诺所提供的继续再教育信息及相关材料真实、有效、并承担由此产生的法律责任。</p></br></br>',
+            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+            '驾驶员签字：<input id="apply_form_id_promise" style="width:98px;" name="promise"  type="text" value="{promise}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+            '日期：<input type="date"  id="apply_form_id_promisedt" name="promisedt"  value="{promisedt}" />',
             '</td>',
             '</tr>',
             '<tr>',
-            '<td>承&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp诺<span style="color: red">*</span></td><td colspan="6"><p>本人承诺上述所有内容真实、有效、并承担由此产生的法律责任</p>',
-            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;驾驶员签字：<input id="apply_form_id_promise" style="width:98px;" name="promise"  type="text" value="{promise}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                '日期：<input type="date" name="promisedt"  value="{promisedt}" />',
-            '</td>',
+            '<td>继续教育培训机构</td><td colspan="6"><input id="apply_form_drvschool" style="width:200px;" name="drvschool"  type="text" value="{drvschool}"/></td>',
             '</tr>',
             '<tr>',
-            '<td rowspan="5">考试记录</td><td colspan="2">成绩</td><td colspan="2">考核员</td><td colspan="2">考核员</td>',
+            ' <td>参加继续教育时间</td><td colspan="6"><input type="date"  id="apply_form_id_st_tk_dt" name="st_tk_dt"  value="{st_tk_dt}" /> &nbsp;至 &nbsp;    <input type="date"  id="apply_form_id_end_tk_dt" name="end_tk_dt"  value="{end_tk_dt}" /></td>',
             '</tr>',
             '<tr>',
-            '<td colspan="2"><input type="text" name="score1" /></td><td colspan="2"><input type="text" name="pa1"></td><td colspan="2"><input type="text" name="pa2"></td>',
+            ' <td>参加继续周期起止年月</td><td colspan="6"><input type="date" id="apply_form_id_zq_st_tk_dt" name="zq_st_tk_dt"  value="{zq_st_tk_dt}" /> &nbsp;至 &nbsp;    <input type="date"  id="apply_form_id_zq_end_tk_dt" name="zq_end_tk_dt"  value="{zq_end_tk_dt}" /></td>',
             '</tr>',
             '<tr>',
-            '<td colspan="2"><input type="text" name="score1" /></td><td colspan="2"><input type="text" name="pa2"></td><td colspan="2"><input type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><input type="text" name="score1" /></td><td colspan="2"><input type="text" name="pa3"></td><td colspan="2"><input type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            '<td colspan="2"><input type="text" name="score1" /></td><td colspan="2"><input type="text" name="pa4"></td><td colspan="2"><input type="text" name="pa2"></td>',
-            '</tr>',
-            '<tr>',
-            ' <td>道路运输管理机构意见</td><td colspan="6">（盖章）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" /></td>',
-            '</tr>',
-            '<tr>',
-            '<td rowspan="2">从业资格证发放</td>',
-            '<td>发放人（签字）</td><td colspan="2"><input type="text"></td><td>日期</td><td colspan="2"><input type="date" /></td>',
-            '</tr>',
-            '<tr>',
-            '<td>领取人（签字）</td><td colspan="2"><input type="text"></td><td>日期</td><td colspan="2"><input type="date" /></td>',
+            '<td rowspan="2">继续教育培训机构意见</td>',
+            '<td colspan="6"><input id="apply_form_remark" style="width:600px; height:100px " name="remark"  type="text" value="{remark}"/></td>',
             '</tr>',
             '</table>',
+            '<p  style="text-indent:24px;">说明：此表由道路运输驾驶员继续教育培训机构保存</p>',
             '</form>',
             '</div>',
             {
@@ -123,41 +92,11 @@ Ext.define('App.view.examinees.maint.Grid', {
                 checkSex_m: function (sex) {
                     return sex =="男";
                 },
-                checktype_C3: function (lictype) {
-                    return lictype=="C3";
+                checklicmd : function (licmd) {
+                    return licmd == "true";
                 },
-                checktype_C2: function (lictype) {
-                    return lictype=="C2";
-                },
-                checktype_C1: function (lictype) {
-                    return lictype=="C1";
-                },
-                checktype_B2: function (lictype) {
-                    return lictype=="B2";
-                },
-                checktype_B1: function (lictype) {
-                    return lictype=="B1";
-                },
-                checktype_A3: function (lictype) {
-                    return lictype=="A3";
-                },
-                checktype_A2: function (lictype) {
-                    return lictype=="A2";
-                },
-                checktype_A1: function (lictype) {
-                    return lictype=="A1";
-                },
-                checkapplytp_Y : function (applytp) {
-                    return applytp =="初领";
-                },
-                checkapplytp_N : function (applytp) {
-                    return applytp !="初领";
-                },
-                checklicmd_Y : function (licmd) {
-                    return licmd == "道路旅客运输";
-                },
-                checklicmd_N : function (licmd_goods) {
-                    return licmd_goods == "道路货物运输";
+                checklicmd_goods : function (licmd_goods) {
+                    return licmd_goods == "true";
                 },
                 checkchecklist1 : function (checklist1) {
                     return checklist1=="true";
@@ -259,29 +198,31 @@ function obt_apply_update(card) {
     Ext.Ajax.request({
         method: "POST",
         params: {
+            card: card,
             name: form_update_apply['name'].value,
+            pxnum: 0,
+            status: '报名',
             sex: form_update_apply['sex'].value,
             education: form_update_apply['education'].value,
             address: form_update_apply['address'].value,
             workunit: form_update_apply['workunit'].value,
-            card: card,
             lictype: form_update_apply['lictype'].value,
-            licdt: form_update_apply['licdt'].value,
-            applytp: form_update_apply['applytp'].value,
-            qulfnum: form_update_apply['qulfnum'].value,
+            applytp: "",
             licmd: form_update_apply['licmd'].checked,
             licmd_goods: form_update_apply['licmd_goods'].checked,
             photo:photo_file,
-            promise: form_update_apply['promise'].value,
             checklist1: form_update_apply['checklist1'].checked,
             checklist2: form_update_apply['checklist2'].checked,
             checklist3: form_update_apply['checklist3'].checked,
             checklist4: form_update_apply['checklist4'].checked,
             checklist5: form_update_apply['checklist5'].checked,
-            pxnum: 0,
+            st_tk_dt: form_update_apply['st_tk_dt'].value,
+            end_tk_dt: form_update_apply['end_tk_dt'].value,
+            zq_st_tk_dt: form_update_apply['zq_st_tk_dt'].value,
+            zq_end_tk_dt: form_update_apply['zq_end_tk_dt'].value,
+            promise: form_update_apply['promise'].value,
             promisedt:form_update_apply['promisedt'].value,
-            remark: '修改',
-            status: '报名'
+            remark: form_update_apply['remark'].value
 
         },
         url: 'update_trainer_qtbh_info',
@@ -296,64 +237,8 @@ function obt_apply_update(card) {
 }
 
 
-function click_licmd_edit() {
-    var form_obt_apply = document.getElementById("apply_edit_form");
-    if (document.getElementById("apply_form_id_licdt_edit").value == "") {
-        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期！</span>")
-        document.getElementById("apply_form_id_licmd_edit").checked==false
-        form_obt_apply['licmd_edit'].checked=false;
-        return;
-    }else{
-        var date = new Date();
-        var lic_Date=document.getElementById("apply_form_id_licdt_edit").value;
-        var lic_Year = new Date(lic_Date);
-        var result = lic_Year.getFullYear()+'-'+(lic_Year.getMonth()+1)+'-'+lic_Year.getDate()
 
-        result = new Date(result.replace(/-/g, "/"));
 
-        var days = date.getTime() - result.getTime();
-        var time = parseInt(days / (1000 * 60 * 60 * 24));
-        if(time<365){
-            Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不满一年！</span>");
-            document.getElementById("apply_form_id_licmd_edit").checked==false
-            form_obt_apply['apply_form_id_licmd_edit'].checked=false;
-        }
-    }
-
-}
-
-function click_licmd_goods_edit() {
-
-    if (document.getElementById("apply_form_id_licdt_edit").value == "") {
-        Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不能为空！</span>")
-        document.getElementById("apply_form_id_licmd_goods_edit").checked==false
-
-        var form_obt_apply = document.getElementById("apply_edit_form");
-        form_obt_apply['apply_form_id_licmd_goods_edit'].checked=false;
-
-        return;
-    }
-}
-
-function change_licdt_edit(obj){
-    var form_obt_apply = document.getElementById("apply_edit_form");
-    var date = new Date();
-    var lic_Date=document.getElementById("apply_form_id_licdt_edit").value;
-    var lic_Year = new Date(lic_Date);
-    var result = lic_Year.getFullYear()+'-'+(lic_Year.getMonth()+1)+'-'+lic_Year.getDate()
-
-    result = new Date(result.replace(/-/g, "/"));
-
-    var days = date.getTime() - result.getTime();
-    var time = parseInt(days / (1000 * 60 * 60 * 24));
-    if(time<365){
-        if(document.getElementById("apply_form_id_licmd_edit").checked==true){
-            Ext.Msg.alert("提示", "<span style='color: red;'>初领驾照日期不满一年！</span>");
-            document.getElementById("apply_form_id_licmd_edit").checked==false
-            form_obt_apply['apply_form_id_licmd_edit'].checked=false;
-        }
-    }
-}
 
 function pub_upload_file_edit(card,id) {
     var cust_id = card;
