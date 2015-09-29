@@ -91,7 +91,7 @@ function print_trainer_scorew(card) {
 
     //document.location.href="print_trainer_score";
     //document.location.href="http://192.168.3.13:8081/test_mvc/print?card="+card;
-    document.location.href="http://192.168.1.252:8080/test_mvc/print?card="+card;
+    document.location.href="http://192.168.1.252:8080/test_jxjy/print?card="+card;
 
 }
 
