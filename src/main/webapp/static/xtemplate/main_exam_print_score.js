@@ -38,5 +38,5 @@ var login_exam_Tpl = [
 
 
 function print_score(card) {
-    document.location.href="http://10.47.83.209:8080/test_mvc/print?card="+card;
+    document.location.href="http://192.168.1.251:8080/test_mvc/print?card="+card;
 }

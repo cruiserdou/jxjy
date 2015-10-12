@@ -57,24 +57,24 @@ public class ObtainTrainerAgreeInfo {
             stmt = conn.createStatement();
 
 
-            int i_num_tj=0;
-            String sql_drvschool = "select  count(1) as num_tj " +
-                    " from work.drvschool WHERE  name='"+s_drvschool+"'";
-
-            rs = stmt.executeQuery(sql_drvschool);
-
-            String sql_trainer="";
-            while (rs.next()) {
-                i_num_tj = rs.getInt(1);
-                if(i_num_tj==0 || rs.getString(1) == null){
-                    sql_trainer = "select * from work.trainer WHERE  1 != 1  ";
-                }else
-                {
-                    sql_trainer = "select * from work.trainer WHERE  scores<60 and drvschool='"+s_drvschool+"'";
-                }
-
-            }
-
+//            int i_num_tj=0;
+//            String sql_drvschool = "select  count(1) as num_tj " +
+//                    " from work.drvschool WHERE  name='"+s_drvschool+"'";
+//
+//            rs = stmt.executeQuery(sql_drvschool);
+//
+//            String sql_trainer="";
+//            while (rs.next()) {
+//                i_num_tj = rs.getInt(1);
+//                if(i_num_tj==0 || rs.getString(1) == null){
+//                    sql_trainer = "select * from work.trainer WHERE  1 != 1  ";
+//                }else
+//                {
+//                    sql_trainer = "select * from work.trainer WHERE  scores<60 and drvschool='"+s_drvschool+"'";
+//                }
+//
+//            }
+            String   sql_trainer = "select * from work.trainer WHERE  scores<60 ";
             if (name != null && name.length() != 0)
                 sql_trainer += " and name like '%" + name + "%'";
             if (card != null && card.length() != 0)

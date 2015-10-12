@@ -71,7 +71,7 @@
       var card="<%=session.getAttribute("card")%>";
 
       function print_trainer_score() {
-          document.location.href="http://10.47.83.209:8080/test_mvc/print?card="+card;
+          document.location.href="http://192.168.1.251:8080/test_mvc/print?card="+card;
       }
     </script>
     <script type="text/javascript" src="static/app/app_exam.js"></script>

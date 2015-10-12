@@ -154,7 +154,7 @@ public class AddAnswersInfo {
             int startWidth = 20;
             int startHeight = 160;
 
-            int colwidth = (int) ((imageWidth - 20) / totalcol);
+            int colwidth = (int) ((imageWidth - 40) / totalcol);
             int rowheight = 30;
 
             image = new BufferedImage(imageWidth, imageHeight_A4, BufferedImage.TYPE_INT_RGB);
@@ -167,7 +167,7 @@ public class AddAnswersInfo {
             //画横线
             for (int j = 0; j <= totalrow - 4; j++) {
                 graphics.setColor(Color.black);
-                graphics.drawLine(startWidth, startHeight + (j + 1) * rowheight, imageWidth - 10, startHeight + (j + 1) * rowheight);
+                graphics.drawLine(startWidth, startHeight + (j + 1) * rowheight, imageWidth - 20, startHeight + (j + 1) * rowheight);
             }
             //画竖线
             for (int k = 0; k <= totalcol; k++) {
@@ -176,19 +176,20 @@ public class AddAnswersInfo {
             }
 
             //设置字体
-            Font font = new Font("华文楷体", Font.BOLD, 20);
+            Font font = new Font("华文楷体", Font.PLAIN, 20);
             graphics.setFont(font);
 
             //写标题
             String title = "经营性道路继续教育考试成绩单";
             graphics.drawString(title, imageWidth / 3 + startWidth, 30);
 
-            font = new Font("WenQuanYi Bitmap Song", Font.BOLD, 18);
+            font = new Font("WenQuanYi Bitmap Song", Font.PLAIN, 16);
             graphics.setFont(font);
             int colwidth_con = 50;
 
+
             graphics.setColor(Color.black);
-            graphics.drawLine(startWidth, 40, imageWidth - 10, 40);
+            graphics.drawLine(startWidth, 40, colwidth * 9 + 20, 40);
             graphics.drawLine(startWidth, 70, colwidth * 9 + 20, 70);
             graphics.drawLine(startWidth, 100, colwidth * 9 + 20, 100);
             graphics.drawLine(startWidth, 130, colwidth * 9 + 20, 130);
@@ -224,7 +225,7 @@ public class AddAnswersInfo {
             }else{
                 image1 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image1, colwidth_con * 15 + 20, 40, 245, 150, null);
+            graphics.drawImage(image1, colwidth_con * 15 + 10, 40, 245, 150, null);
 
 //            Image image1 = new ImageIcon(projectPath +"/"+ photo).getImage();
 //            graphics.drawImage(image1, colwidth_con * 15 + 20, 40, 245, 150, null);
@@ -369,7 +370,7 @@ public class AddAnswersInfo {
                 }
             }
             //设置字体
-            font = new Font("华文楷体", Font.PLAIN, 16);
+            font = new Font("华文楷体",Font.PLAIN,16);
             graphics.setFont(font);
             String phone1="";
             String phone2="";
@@ -406,7 +407,7 @@ public class AddAnswersInfo {
             }else{
                 image2 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image2, startWidth + colwidth * 0, 970, 330, 250, null);
+            graphics.drawImage(image2, startWidth + colwidth * 0, 980, 330, 250, null);
 
 
             if(phone2.length()>0 && phone2 != null){
@@ -421,7 +422,7 @@ public class AddAnswersInfo {
             }else{
                 image3 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image3, startWidth + colwidth * 4 , 970,330,250, null);
+            graphics.drawImage(image3, startWidth + colwidth * 4 ,980, 330, 250, null);
 
 
             if(phone3.length()>0  && phone3!=null){
@@ -436,19 +437,19 @@ public class AddAnswersInfo {
             }else{
                 image4 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image4, startWidth + colwidth * 8, 970, 330, 250, null);
+            graphics.drawImage(image4, startWidth + colwidth * 8, 980, 330, 250, null);
 
 
 
-            graphics.drawString("考试签字:", colwidth * 0 + 40, 1250);
-            graphics.drawString("        ", colwidth * 2, 1250);
-            graphics.drawLine(colwidth + 30, 1260, colwidth * 3 + 50, 1260);
-            graphics.drawString("监考签字:", colwidth * 4 + 40, 1250);
-            graphics.drawString("        ", colwidth * 6, 1250);
-            graphics.drawLine(colwidth * 5 + 30, 1260, colwidth * 7 + 50, 1260);
-            graphics.drawString("考试时间:", colwidth * 8 + 50, 1250);
-            graphics.drawString(now_dt, colwidth * 10, 1250);
-            graphics.drawLine(colwidth * 9 + 40, 1260, colwidth * 11 + 50, 1260);
+            graphics.drawString("考试签字:", colwidth * 0 + 40, 1350);
+            graphics.drawString("        ", colwidth * 2, 1350);
+            graphics.drawLine(colwidth + 30, 1360, colwidth * 3 + 50, 1360);
+            graphics.drawString("监考签字:", colwidth * 4 + 40, 1350);
+            graphics.drawString("        ", colwidth * 6, 1350);
+            graphics.drawLine(colwidth * 5 + 30, 1360, colwidth * 7 + 50, 1360);
+            graphics.drawString("考试时间:", colwidth * 8 + 50, 1350);
+            graphics.drawString(now_dt, colwidth * 10, 1350);
+            graphics.drawLine(colwidth * 9 + 40, 1360, colwidth * 11 + 50, 1360);
 
             File annexfile5 = new File(projectPath + "/" + card + "_s.jpg");
             if (annexfile5.exists()) {

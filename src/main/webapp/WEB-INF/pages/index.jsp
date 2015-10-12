@@ -51,8 +51,7 @@
     <img class="header-cell" src="static/css/images/yglogo.png">
 
     <div class="header-cell">
-        <h1>武威市道路客货运输驾驶员</h1>
-        <h2>--从业资格继续教育考试系统</h2>
+        <h1>经营性道路客货运输驾驶员继续教育考试管理系统</h1>
     </div>
 </div>
 <div id="login">
