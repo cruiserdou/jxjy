@@ -33,7 +33,7 @@ Ext.define('App.view.examinees.apply.Applyf', {
             '<td>身份证号<span style="color: red">*</span></td><td colspan="5"><input  onblur="card_check()" id="apply_form_id_card" style="width:150px;" name="card"  type="text" value="{card}"/></td>',
         '</tr>',
         '<tr>',
-        ' <td>原从业资格证件号<span style="color: red">*</span></td><td colspan="6"><input style="width:98px;"  id="apply_form_id_lictype"    name="lictype"  type="text" value="{lictype}"/></td>',
+        ' <td>原从业资格证件号<span style="color: red">*</span></td><td colspan="6"><input style="width:150px;"  id="apply_form_id_lictype"    name="lictype"  type="text" value="{lictype}"/></td>',
         '</tr>',
         '<tr>',
         ' <td>申请类别<span style="color: red">*</span></td><td colspan="6">',

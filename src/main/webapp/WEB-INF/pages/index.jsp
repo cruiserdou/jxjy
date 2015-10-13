@@ -51,7 +51,7 @@
     <img class="header-cell" src="static/css/images/yglogo.png">
 
     <div class="header-cell">
-        <h1>经营性道路客货运输驾驶员继续教育考试管理系统</h1>
+        <h1 align="cneter">经营性道路客货运输驾驶员继续教育考试系统</h1>
     </div>
 </div>
 <div id="login">

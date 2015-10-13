@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>武威运管继续教育在线考试系统</title>
+    <title>运管继续教育在线考试系统</title>
     <link href="static/css/index.css" rel="stylesheet"/>
     <link href="static/css/images/yg-logo32.jpg" rel="shortcut icon">
     <script src="static/jslib/jquery.mini.js"></script>
@@ -42,7 +42,7 @@
 <div id="login">
     <h2>
         <span style="width: 64px;"><img src="static/css/images/tlight.png"></span>
-        <span style="width: 100%;">武威运管从业资格继续教育考试管理系统</span>
+        <span style="width: 100%;">道路运输从业资格继续教育管理系统</span>
     </h2>
 
     <form action="login_check" method="POST">
