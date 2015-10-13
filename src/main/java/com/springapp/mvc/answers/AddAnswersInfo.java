@@ -441,17 +441,18 @@ public class AddAnswersInfo {
 
 
 
-            graphics.drawString("考试签字:", colwidth * 0 + 40, 1300);
-            graphics.drawString("        ", colwidth * 2, 1300);
-            graphics.drawLine(colwidth + 30, 1310, colwidth * 3 + 50, 1310);
-            graphics.drawString("监考签字:", colwidth * 4 + 40, 1300);
-            graphics.drawString("        ", colwidth * 6, 1300);
-            graphics.drawLine(colwidth * 5 + 30, 1310, colwidth * 7 + 50, 1310);
-            graphics.drawString("考试时间:", colwidth * 8 + 50, 1300);
-            graphics.drawString(now_dt, colwidth * 10, 1300);
-            graphics.drawLine(colwidth * 9 + 40, 1310, colwidth * 11 + 50, 1310);
-            graphics.drawString("本次继续教育有效期至          年         月         日                 ", colwidth * 0 + 40, 1350);
-            graphics.drawString("                                              签章", colwidth * 7 + 50, 1360);
+            graphics.drawString("考试签字:", colwidth * 0 + 40, 1280);
+            graphics.drawString("        ", colwidth * 2, 1280);
+            graphics.drawLine(colwidth + 30, 1290, colwidth * 3 + 50, 1290);
+            graphics.drawString("监考签字:", colwidth * 4 + 40, 1280);
+            graphics.drawString("        ", colwidth * 6, 1280);
+            graphics.drawLine(colwidth * 5 + 30, 1290, colwidth * 7 + 50, 1290);
+            graphics.drawString("考试时间:", colwidth * 8 + 50, 1280);
+            graphics.drawString(now_dt, colwidth * 10, 1280);
+            graphics.drawLine(colwidth * 9 + 40, 1290, colwidth * 11 + 50, 1290);
+            graphics.drawString("本次继续教育有效期至         年         月         日    ", colwidth * 7 + 40, 1320);
+            graphics.drawString("                      (签章)", colwidth * 8 + 50, 1360);
+
 
             File annexfile5 = new File(projectPath + "/" + card + "_s.jpg");
             if (annexfile5.exists()) {
