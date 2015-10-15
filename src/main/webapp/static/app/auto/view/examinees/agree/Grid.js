@@ -1,9 +1,12 @@
-var sm = new Ext.selection.CheckboxModel({checkOnly: false});
+
+//var sm = new Ext.selection.CheckboxModel({checkOnly: false});
 Ext.define('App.view.examinees.agree.Grid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.agreef_grid',
     store: 'syj_trainer_agree',
-    selModel: sm,
+    //selModel: sm,
+    //selModel:new Ext.selection.CheckboxModel({checkOnly: false}),
+    features:[{ftype:'grouping'}],
     id :'grid_trainer_agree',
     listeners: {
         itemclick: function (this_, record_) {
@@ -19,7 +22,7 @@ Ext.define('App.view.examinees.agree.Grid', {
             {text: '姓名', width: 100, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
             {text: '身份证号', width: 200, dataIndex: 'card'},
-            {text: '驾校名称', width: 150, dataIndex: 'drvschool'},
+            //{text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '照片', width: 160, dataIndex: 'photo',hidden:true},
             {text: '考生联系地址', width: 200, dataIndex: 'address'},
             //{text: '准驾车型', width: 80, dataIndex: 'lictype'},
@@ -55,3 +58,4 @@ Ext.define('App.view.examinees.agree.Grid', {
         this.callParent(arguments);
     }
 });
+
