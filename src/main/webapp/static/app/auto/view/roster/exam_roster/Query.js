@@ -16,6 +16,41 @@ Ext.define('App.view.roster.exam_roster.Query', {
             dock: 'top',
             border: true,
             items: [
+                {
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name'
+                    //value: '基本信息',
+                    //listeners: {
+                    //    change: function (_this, newValue) {
+                    //        alert(Ext.getCmp('drvschool_id').getValue());
+                    //    }
+                    //}
+                },
+
 
                 {
                     id: 'exam_roster_print',
@@ -25,6 +60,10 @@ Ext.define('App.view.roster.exam_roster.Query', {
                         click: function () {
 //                            exam_roster_export();
 //                            window.open("static/upload/KaoShi_roster.xls");
+                            if (Ext.getCmp('drvschool_id').getValue() == "" || Ext.getCmp('drvschool_id').getValue() == null) {
+                                Ext.Msg.alert("提示", "请选择要导出的驾校!");
+                            } else {
+                                var drvschool = Ext.getCmp('drvschool_id').getValue();
 
                             Ext.create('widget.window', {
                                 xtype: 'form',
@@ -43,7 +82,7 @@ Ext.define('App.view.roster.exam_roster.Query', {
                                         xtype: 'panel',
                                         bodyPadding: '20',
                                         flex: 1,
-                                        html: '<a onclick="exam_roster_export();"  href="#"><img style="height: 32px; margin-left: 50px;" src="static/css/images/doc.png" />导出</a><br/>'
+                                        html: "<a onclick='exam_roster_export(\""+drvschool+"\");'  ><img style='height: 32px; margin-left: 50px;' src='static/css/images/doc.png'/>导出</a><br/>"
                                     },
                                     {
                                         xtype: 'panel',
@@ -55,23 +94,24 @@ Ext.define('App.view.roster.exam_roster.Query', {
 
                             }).show(Ext.get('exam_roster_print'));
                         }
+                        }
                     }
                 },
-                {
-                    text: '打印',
-                    iconCls: 'icon_edit',
-                    handler: function () {
-
-                        Ext.Msg.confirm('信息', '确定要打印？', function (btn) {
-                            if (btn == 'yes') {
-                                window.location.target="_blank";
-
-                                window.open("print_exam", "_blank")
-
-                            }
-                        });
-                    }
-                },
+                //{
+                //    text: '打印',
+                //    iconCls: 'icon_edit',
+                //    handler: function () {
+                //
+                //        Ext.Msg.confirm('信息', '确定要打印？', function (btn) {
+                //            if (btn == 'yes') {
+                //                window.location.target="_blank";
+                //
+                //                window.open("print_exam", "_blank")
+                //
+                //            }
+                //        });
+                //    }
+                //},
                 {
                     text: '刷新',
                     glyph: 0xf021,
@@ -163,11 +203,12 @@ Ext.define('App.view.roster.exam_roster.Query', {
     }
 });
 
-function exam_roster_export() {
+function exam_roster_export(drvschool) {
     Ext.Ajax.request({
         url: 'import_exam_roster_info',
         params: {
-            "fileName": 'KaoShi_roster.xls'
+            "fileName": 'KaoShi_roster.xls',
+            "drvschool":drvschool
         },
         waitMsg: '正在导出数据...',
         success: function (form, action) {

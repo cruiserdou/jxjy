@@ -2,6 +2,7 @@
 Ext.define('App.store.syj_trainer_results', {
     extend: 'Ext.data.Store',
     model: 'App.model.syj_trainer',
+    groupField:'drvschool',
     proxy: {
         type: 'ajax',
         url: 'obtain_trainer_results_info',

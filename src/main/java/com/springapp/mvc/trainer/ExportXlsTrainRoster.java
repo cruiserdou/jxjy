@@ -27,7 +27,8 @@ public class ExportXlsTrainRoster {
     @ResponseBody
     DataShop getShopInJSON(
             HttpServletRequest request,
-            @RequestParam(value = "fileName", required = false) String fileName
+            @RequestParam(value = "fileName", required = false) String fileName,
+            @RequestParam(value = "drvschool", required = false) String drvschool
     ) throws Exception{
         Connection conn = null;
         Statement stmt = null;
@@ -53,8 +54,9 @@ public class ExportXlsTrainRoster {
             String projectPath_target = request.getSession().getServletContext().getRealPath("/static/upload/");
 
             String sql = "select RANK() OVER(ORDER BY id) as 序号,name as 姓名,sex as 性别,card as 身份证号,address as  工作单位或家庭住址," +
-                    "lictype as 准驾车型,licdt as 驾照初领日期,licmd as 资格类别,'同意' as 是否同意考试,'' as 成绩 " +
-                    " from work.trainer  where status='同意考试'      ";
+                    "lictype as 原从业资格证件号,education as 联系电话,workunit as 服务单位,'同意' as 是否同意考试,'' as 成绩 " +
+                    " from work.trainer  where status='同意考试'  and drvschool='"+drvschool+"'";
+
 
             rs = stmt.executeQuery(sql);
 
@@ -111,7 +113,7 @@ public class ExportXlsTrainRoster {
             sheet.setColumnWidth(2,1500);
             sheet.setColumnWidth(3,5000);
             sheet.setColumnWidth(4,6000);
-            sheet.setColumnWidth(5,1500);
+            sheet.setColumnWidth(5,5000);
             sheet.setColumnWidth(6,3000);
             sheet.setColumnWidth(7,5000);
             sheet.setColumnWidth(8,2000);

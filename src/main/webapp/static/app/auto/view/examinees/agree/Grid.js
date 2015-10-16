@@ -5,7 +5,9 @@ Ext.define('App.view.examinees.agree.Grid', {
     alias: 'widget.agreef_grid',
     store: 'syj_trainer_agree',
     //selModel: sm,
-    //selModel:new Ext.selection.CheckboxModel({checkOnly: false}),
+    //selModel:new Ext.selection.CheckboxModel(
+    //    {checkOnly: false,  width:300, injectCheckbox:2}
+    //),
     features:[{ftype:'grouping'}],
     id :'grid_trainer_agree',
     listeners: {
@@ -17,12 +19,12 @@ Ext.define('App.view.examinees.agree.Grid', {
     initComponent: function () {
 
         this.columns = [
+            //{text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '考生ID', width: 80, dataIndex: 'id',hidden:true},
             {text: '考生状态', width: 80, dataIndex: 'status'},
             {text: '姓名', width: 100, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
             {text: '身份证号', width: 200, dataIndex: 'card'},
-            //{text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '照片', width: 160, dataIndex: 'photo',hidden:true},
             {text: '考生联系地址', width: 200, dataIndex: 'address'},
             //{text: '准驾车型', width: 80, dataIndex: 'lictype'},
