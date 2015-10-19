@@ -5,10 +5,10 @@ Ext.define('App.view.examinees.agree.Grid', {
     alias: 'widget.agreef_grid',
     store: 'syj_trainer_agree',
     //selModel: sm,
-    //selModel:new Ext.selection.CheckboxModel(
-    //    {checkOnly: false,  width:300, injectCheckbox:2}
-    //),
-    features:[{ftype:'grouping'}],
+    selModel:new Ext.selection.CheckboxModel(
+        {checkOnly: false,  width:300}
+    ),
+    //features:[{ftype:'grouping'}],
     id :'grid_trainer_agree',
     listeners: {
         itemclick: function (this_, record_) {
@@ -19,7 +19,7 @@ Ext.define('App.view.examinees.agree.Grid', {
     initComponent: function () {
 
         this.columns = [
-            //{text: '驾校名称', width: 150, dataIndex: 'drvschool'},
+            {text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '考生ID', width: 80, dataIndex: 'id',hidden:true},
             {text: '考生状态', width: 80, dataIndex: 'status'},
             {text: '姓名', width: 100, dataIndex: 'name'},

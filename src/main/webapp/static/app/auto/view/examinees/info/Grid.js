@@ -4,7 +4,7 @@ Ext.define('App.view.examinees.info.Grid', {
     extend: 'Ext.grid.GridPanel',
     alias: 'widget.examinees_grid',
 
-    features:[{ftype:'grouping'}],
+    //features:[{ftype:'grouping'}],
     store: 'syj_trainer',
 //    selModel: sm,
     id :'grid_info_trainer',

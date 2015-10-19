@@ -18,7 +18,7 @@ Ext.define('App.store.syj_trainer_agree', {
             root: 'list'
         }
     },
-    autoLoad: true
+    autoLoad: false
 });
 
 

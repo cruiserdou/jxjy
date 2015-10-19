@@ -17,6 +17,46 @@ Ext.define('App.view.examinees.agree.Query', {
             border: true,
             items: [
                 {
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name',
+                    //value: '基本信息',
+                    listeners: {
+                        change: function (_this, newValue) {
+                            //alert(Ext.getCmp('drvschool_id').getValue());
+                            var store = Ext.getCmp('grid_trainer_agree').getStore();
+                            store.load({
+                                params: {
+                                    drvschool: Ext.getCmp('drvschool_id').getValue()
+                                }
+                            });
+                        }
+                    }
+                },
+                {
                     text: '同意',
                     id: 'agrees_edit',
                     iconCls: 'icon_edit',

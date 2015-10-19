@@ -18,20 +18,46 @@ Ext.define('App.view.examinees.info.Query', {
             dock: 'top',
             border: true,
             items: [
-//                {
-//                    text: '批量打印',
-//                    iconCls: 'icon_edit',
-//                    handler: function () {
-//
-//                        Ext.Msg.confirm('信息', '确定要打印？', function (btn) {
-//                            if (btn == 'yes') {
-////                                window.location.target="_blank";
-//
-//                                window.open("print_apply_n", "_blank")
-//                            }
-//                        });
-//                    }
-//                },
+                {
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name',
+                    //value: '基本信息',
+                    listeners: {
+                        change: function (_this, newValue) {
+                            //alert(Ext.getCmp('drvschool_id').getValue());
+                            var store = Ext.getCmp('grid_info_trainer').getStore();
+                            store.load({
+                                params: {
+                                    drvschool: Ext.getCmp('drvschool_id').getValue()
+                                }
+                            });
+                        }
+                    }
+                },
                 {
                     text: '刷新',
                     iconCls: 'icon_table_refresh',
