@@ -22,7 +22,7 @@ Ext.define('App.view.examinees.agree.Query', {
                     labelAlign: 'right',
                     fieldLabel: '选择驾校',
                     name: 'name',
-                    id:'drvschool_id',
+                    id:'drvschool_info_id',
                     autoRender: true,
                     autoShow: true,
                     store: Ext.create('Ext.data.Store',
@@ -50,7 +50,7 @@ Ext.define('App.view.examinees.agree.Query', {
                             var store = Ext.getCmp('grid_trainer_agree').getStore();
                             store.load({
                                 params: {
-                                    drvschool: Ext.getCmp('drvschool_id').getValue()
+                                    drvschool: Ext.getCmp('drvschool_info_id').getValue()
                                 }
                             });
                         }

@@ -10,12 +10,10 @@ Ext.define('App.view.examinees.info.Grid', {
     id :'grid_info_trainer',
 
     listeners: {
-        listeners: {
             itemclick: function (this_, record_) {
-                var info_trainerf_panel = Ext.getCmp('info_trainerf_info');
+                var info_trainerf_panel = Ext.getCmp('info_trainer_info');
                 info_trainerf_panel.tpl.overwrite(info_trainerf_panel.body, record_.data);
-            }
-        },
+            },
         'itemdblclick': function (view, record, item, index, e) {
         //创建模板
 
@@ -129,7 +127,8 @@ Ext.define('App.view.examinees.info.Grid', {
         });
         editWindow.show(Ext.get('examinees_query_id'));
 
-    }},
+    }
+    },
     initComponent: function () {
 
         this.columns = [
@@ -138,7 +137,7 @@ Ext.define('App.view.examinees.info.Grid', {
             {text: '姓名', width: 90, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
             {text: '身份证号', width: 200, dataIndex: 'card'},
-            {text: '驾校名称', width: 130, dataIndex: 'drvschool',hidden:true},
+            {text: '驾校名称', width: 130, dataIndex: 'drvschool'},
             //{text: '申请种类', width: 80, dataIndex: 'applytp'},
             {text: '照片', width: 160, dataIndex: 'photo',hidden:true},
             {text: '考生联系地址', width: 150, dataIndex: 'address'},

@@ -2,8 +2,7 @@
 Ext.define('App.store.syj_trainer_agree', {
     extend: 'Ext.data.Store',
     model: 'App.model.syj_trainer',
-    sortInfo: {field: 'id', direction: "ASC"},
-    groupField:'drvschool',
+    //groupField:'drvschool',
     proxy: {
         type: 'ajax',
         url: 'obtain_trainers_agree_info',
