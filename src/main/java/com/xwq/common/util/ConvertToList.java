@@ -38,3 +38,4 @@ public class ConvertToList {
         this.total = total;
     }
 }
+

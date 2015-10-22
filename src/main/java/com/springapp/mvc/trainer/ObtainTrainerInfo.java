@@ -26,6 +26,8 @@ public class ObtainTrainerInfo {
     public
     @ResponseBody
     DataShop getShopInJSON(
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "limit", required = false) String limit,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "card", required = false) String card,
             @RequestParam(value = "status", required = false) String status,
@@ -36,6 +38,7 @@ public class ObtainTrainerInfo {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        ResultSet rs_drvschool = null;
 
 
 
@@ -55,44 +58,67 @@ public class ObtainTrainerInfo {
         try{
             conn = DriverManager.getConnection(url, user, password);
             stmt = conn.createStatement();
+            String sql_d = "";
+            String sql_s = "";
+            String sql_c = "";
+            Boolean b_check=false;
 
             int i_num_tj=0;
             String sql_drvschool = "select  count(1) as num_tj " +
                     " from work.drvschool WHERE  name='"+s_drvschool+"'";
 
-            rs = stmt.executeQuery(sql_drvschool);
+            rs_drvschool = stmt.executeQuery(sql_drvschool);
 
-            String sql_trainer="";
-            while (rs.next()) {
-                i_num_tj = rs.getInt(1);
-                if(i_num_tj==0 || rs.getString(1) == null){
-                    sql_trainer = "select * from work.trainer WHERE  1 = 1 and pxnum=0  ";
+            while (rs_drvschool.next()) {
+                i_num_tj = rs_drvschool.getInt(1);
+                if(i_num_tj==0 || rs_drvschool.getString(1) == null){
+                    sql_d = "select * from work.trainer WHERE  1 = 1 and pxnum=0  ";
+                    sql_c = "select count(*) from work.trainer WHERE  1 = 1 and pxnum=0  ";
                 }else
                 {
-                    sql_trainer = "select * from work.trainer WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
+                    sql_d = "select * from work.trainer WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
+                    sql_c = "select count(*) from work.drvschool  corp WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
                 }
-
             }
 
 
-            if (name != null && name.length() != 0)
-                sql_trainer += " and name like '%" + name + "%'";
-            if (card != null && card.length() != 0)
-                sql_trainer += " and card like '%" + card + "%'";
-            if (status != null && status.length() != 0)
-                sql_trainer += " and status like '%" + status + "%'";
-            if (drvschool != null && drvschool.length() != 0)
-                sql_trainer += " and drvschool like '%" + drvschool + "%'";
+            if (name != null && name.length() != 0){
+                sql_s += " and name like '%" + name + "%'";
+                b_check=true;
+            }
+            if (status != null && status.length() != 0){
+                sql_s += " and status like '%" + status + "%'";
+                b_check=true;
+            }
+            if (card != null && card.length() != 0){
+                sql_s += " and card like '%" + card + "%'";
+                b_check=true;
+            }
+            if (drvschool != null && drvschool.length() != 0){
+                sql_s += " and drvschool like '%" + drvschool + "%'";
+                b_check=true;
+            }
+            sql_c += sql_s;
 
-            rs = stmt.executeQuery(sql_trainer);
+//            sql_s += " order by  corp.id desc ";
+            sql_d += sql_s;
+            if( !b_check==true)
+                sql_d += " limit " + limit + " offset " + start;
 
+
+
+            rs = stmt.executeQuery(sql_d);
             list = new ConvertToList().convertList(rs);
+
+            rs = stmt.executeQuery(sql_c);
+            while (rs.next())
+                dataShop.setTotal(rs.getInt(1));
 
         }catch (SQLException e){
             System.out.print(e.getMessage());
         }finally {
             try{
-                if (rs != null) rs.close();
+                if (rs_drvschool != null) rs_drvschool.close();
                 if (stmt != null) stmt.close();
                 if (conn != null) conn.close();
             }catch (SQLException e){

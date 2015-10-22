@@ -1,5 +1,7 @@
 package com.xwq.common.model;
 
+import org.postgresql.util.PGobject;
+
 import java.util.List;
 
 /**
@@ -8,8 +10,18 @@ import java.util.List;
 public class DataShop {
     boolean success;
     String name;
-    List list;
     String message;
+    List list;
+    PGobject pGobject;
+    private long total;
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
 
     public String getMessage() {
         return message;
@@ -17,6 +29,14 @@ public class DataShop {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public PGobject getpGobject() {
+        return pGobject;
+    }
+
+    public void setpGobject(PGobject pGobject) {
+        this.pGobject = pGobject;
     }
 
     public boolean isSuccess() {

@@ -170,8 +170,8 @@ Ext.define('App.view.examinees.info.Grid', {
             bbar: Ext.create('Ext.PagingToolbar', {
                 store: 'syj_trainer',
                 displayInfo: true,
-                displayMsg: '第 {0} 到 {1} 条数据, 共{2}条',
-                emptyMsg: '无数据'
+                displayenterprise: '第 {0} 到 {1} 条数据, 共{2}条',
+                emptyenterprise: '无数据'
             }),
             columnLines: true,
             enableLocking: true
@@ -181,22 +181,7 @@ Ext.define('App.view.examinees.info.Grid', {
     }
 });
 
-//function trainer_export(card) {
-//    alert(card);
-//    Ext.Ajax.request({
-//        url: 'print_examdoc_info',
-//        params: {
-//            "card": card
-//        },
-//        waitMsg: '正在导出数据...',
-//        success: function (form, action) {
-//            Ext.Msg.alert("成功", "导出成功!");
-//        },
-//        failure: function (form, action) {
-//            Ext.Msg.alert("失败", "导出失败!");
-//        }
-//    });
-//};
+
 
 
 

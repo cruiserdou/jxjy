@@ -18,6 +18,45 @@ Ext.define('App.view.examinees.results.Query', {
             border: true,
             items: [
                 {
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_results_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name',
+                    //value: '基本信息',
+                    listeners: {
+                        change: function (_this, newValue) {
+                            var store = Ext.getCmp('grid_results_trainer').getStore();
+                            store.load({
+                                params: {
+                                    drvschool: Ext.getCmp('drvschool_results_id').getValue()
+                                }
+                            });
+                        }
+                    }
+                },
+                {
                     text: '违纪',
                     id: 'results_edit',
                     iconCls: 'icon_edit',

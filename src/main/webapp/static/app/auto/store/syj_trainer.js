@@ -2,7 +2,7 @@
 Ext.define('App.store.syj_trainer', {
     extend: 'Ext.data.Store',
     model: 'App.model.syj_trainer',
-    groupField:'drvschool',
+    pageSize:30,
     proxy: {
         type: 'ajax',
         url: 'obtain_trainers_info',
@@ -12,6 +12,7 @@ Ext.define('App.store.syj_trainer', {
         },
         reader: {
             type: 'json',
+            totalProperty: 'total',
             root: 'list'
         }
     },
