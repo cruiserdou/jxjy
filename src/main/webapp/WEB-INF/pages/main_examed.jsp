@@ -292,22 +292,50 @@
         function  check_exams_stat(){
             Ext.Ajax.request({
                 method: "POST",
-                url:'obtain_check_exams_info',
+                url:'check_wj_trainer_info',
                 success: function (response,opts) {
                     var obj=Ext.decode(response.responseText);
-                    if(!obj.success){
+                    if(obj.success)
+                    {
+                        Ext.Ajax.request({
+                            method: "POST",
+                            url:'obtain_check_exams_info',
+                            success: function (response,opts) {
+                                var obj=Ext.decode(response.responseText);
+                                if(!obj.success){
+                                    swal({
+                                        title: "信息提示",
+                                        text: "您已提交成绩，无法再次考试！",
+                                        type: "warning",
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "OK ",
+                                        closeOnConfirm: false
+                                    }, function (isConfirm) {
+                                        if (isConfirm) {
+                                            document.location.href="https://www.wwyg.com:8443/jxyj/";
+                                        }else{
+                                            document.location.href="https://www.wwyg.com:8443/jxyj/";
+                                        }
+                                    });
+                                }
+                            },
+                            failure: function () {
+                                Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
+                            }
+                        });
+                    }else{
                         swal({
                             title: "信息提示",
-                            text: "您已提交成绩，无法再次考试！",
+                            text: "您存在违纪行为！",
                             type: "warning",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "OK ",
                             closeOnConfirm: false
                         }, function (isConfirm) {
                             if (isConfirm) {
-                                document.location.href="https://www.wwyg.com:8443/jxyj/";
+                                document.location.href="https://www.wwyg.com:8443/jxjy/";
                             }else{
-                                document.location.href="https://www.wwyg.com:8443/jxyj/";
+                                document.location.href="https://www.wwyg.com:8443/jxjy/";
                             }
                         });
                     }
@@ -316,6 +344,7 @@
                     Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
                 }
             });
+
         }
 
         function changeQuest(id) {
@@ -372,8 +401,7 @@
                 }
             });
 
-        }
-        ;
+        } ;
 
 
         //提交
@@ -389,37 +417,64 @@
                 Ext.Msg.alert("提示", "已提交，不能重复提交！");
                 return;
             }
-
-
-            var result = '';
-            var storage = window.localStorage;
-            for (var i = 0; i < storage.length; i++) {
-                var answer;
-                if (storage.getItem(storage.key(i)) != null) {
-                    answer = storage.getItem(storage.key(i));
-                } else {
-                    answer = "X";
-                }
-                result = result + storage.key(i) + ',' + answer + ','
-            }
-
-            document.getElementById('fade').style.display = 'block';
             Ext.Ajax.request({
                 method: "POST",
-                params: {
-                    admbh: s_card,
-                    qtbh: s_qtbh,
-                    qtnum: 1,
-                    answer: result
-                },
-                url: 'add_answers_info',
-                waitMsg: '正在计算成绩，请等待...',
-                success: function () {
-                    localStorage.clear();
-                    b_result = true;
-                    document.location.href = "score";
+                url:'check_wj_trainer_info',
+                success: function (response,opts) {
+                    var obj=Ext.decode(response.responseText);
+                    if(obj.success)
+                    {
+                        var result = '';
+                        var storage = window.localStorage;
+                        for (var i = 0; i < storage.length; i++) {
+                            var answer;
+                            if (storage.getItem(storage.key(i)) != null) {
+                                answer = storage.getItem(storage.key(i));
+                            } else {
+                                answer = "X";
+                            }
+                            result = result + storage.key(i) + ',' + answer + ','
+                        }
+
+                        document.getElementById('fade').style.display = 'block';
+                        Ext.Ajax.request({
+                            method: "POST",
+                            params: {
+                                admbh: s_card,
+                                qtbh: s_qtbh,
+                                qtnum: 1,
+                                answer: result
+                            },
+                            url: 'add_answers_info',
+                            waitMsg: '正在计算成绩，请等待...',
+                            success: function () {
+                                localStorage.clear();
+                                b_result = true;
+                                document.location.href = "score";
+                            },
+                            failure: function () {
+                            }
+                        });
+                    }else{
+                        localStorage.clear();
+                        swal({
+                            title: "信息提示",
+                            text: "您存在违纪行为！",
+                            type: "warning",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK ",
+                            closeOnConfirm: false
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                document.location.href="https://www.wwyg.com:8443/jxjy/";
+                            }else{
+                                document.location.href="https://www.wwyg.com:8443/jxjy/";
+                            }
+                        });
+                    }
                 },
                 failure: function () {
+                    Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
                 }
             });
 
