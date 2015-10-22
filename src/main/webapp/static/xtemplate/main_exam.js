@@ -42,7 +42,7 @@ var sel_exam_Tpl = [
     '<td>{ks_status}</td>',
     '</tr>',
     '</table>',
-    '<a onclick="examinees_start();" id="start_btn" href="#">开始考试</a>' +
+    '<a onclick="examinees_start(\'{status}\');" id="start_btn" href="#">开始考试</a>' +
     '<span id="exam_status_span" style="color: red;">正在初始化考试系统，请等候...</span>',
     '</div>',
     '<div id="img">',
@@ -75,55 +75,71 @@ var login_exam_Tpl = [
     '</div>'
 ];
 
-function examinees_start() {
-
-    console.log(opt_flag);
-    if (opt_flag == false && check_sckt_flag==false && check_yk_flag==false) {
-        swal("还未到考试时间，请等待...");
-        return
-    }
-    if(opt_flag==true && check_sckt_flag ==true){
-        swal("正在生成考题，请等待...");
-        return
-    }
-    if(opt_flag==true && check_yk_flag ==true){
-        swal("你已提交成绩，不能再次考试！");
-        return
-    }
-
-    //重新设置标志防止重新点击
-    opt_flag = false;
-
-    Ext.Ajax.request({
-        method: "POST",
-        url: 'obtain_exam_next_info',
-        success: function (response, opts) {
-            var obj = Ext.decode(response.responseText);
-            if (obj.success) {
-                check_sckt_flag=true;
-                document.location.href = "examed";
-            } else {
-                check_yk_flag=true;
-                swal({
-                    title: "信息提示",
-                    text: "您已提交成绩，无法再次考试！",
-                    type: "warning",
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "OK ",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        document.location.href="https://www.wwyg.com:8443/jxjy/";
-                    }else{
-                        document.location.href="https://www.wwyg.com:8443/jxjy/";
-                    }
-                });
+function examinees_start(status) {
+    if(status=="违纪"){
+        swal({
+            title: "信息提示",
+            text: "您存在违纪行为！",
+            type: "warning",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "OK ",
+            closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                document.location.href="https://www.wwyg.com:8443/jxjy/";
+            }else{
+                document.location.href="https://www.wwyg.com:8443/jxjy/";
             }
-        },
-        failure: function () {
-            swal("联系系统管理员，检查考生状态！");
+        });
+    }else {
+        console.log(opt_flag);
+        if (opt_flag == false && check_sckt_flag == false && check_yk_flag == false) {
+            swal("还未到考试时间，请等待...");
+            return
         }
-    });
+        if (opt_flag == true && check_sckt_flag == true) {
+            swal("正在生成考题，请等待...");
+            return
+        }
+        if (opt_flag == true && check_yk_flag == true) {
+            swal("你已提交成绩，不能再次考试！");
+            return
+        }
+
+        //重新设置标志防止重新点击
+        opt_flag = false;
+
+        Ext.Ajax.request({
+            method: "POST",
+            url: 'obtain_exam_next_info',
+            success: function (response, opts) {
+                var obj = Ext.decode(response.responseText);
+                if (obj.success) {
+                    check_sckt_flag = true;
+                    document.location.href = "examed";
+                } else {
+                    check_yk_flag = true;
+                    swal({
+                        title: "信息提示",
+                        text: "您已提交成绩，无法再次考试！",
+                        type: "warning",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "OK ",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            document.location.href = "https://www.wwyg.com:8443/jxjy/";
+                        } else {
+                            document.location.href = "https://www.wwyg.com:8443/jxjy/";
+                        }
+                    });
+                }
+            },
+            failure: function () {
+                swal("联系系统管理员，检查考生状态！");
+            }
+        });
+    }
 }
 function examinees_starts() {
 

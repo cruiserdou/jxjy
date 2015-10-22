@@ -47,12 +47,14 @@ public class ObtainInfoCheckInfo {
 
             Map rowData = new HashMap<String, Objects>();
             String s_qtbh="";
+            String s_status="";
 
-            String sql_qtbh =  "select qtbh FROM work.trainer   WHERE id ="+session.getAttribute("id").toString();
+            String sql_qtbh =  "select qtbh,status FROM work.trainer   WHERE id ="+session.getAttribute("id").toString();
             ResultSet rsqtbh = stmt.executeQuery(sql_qtbh);
 
             while (rsqtbh.next()) {
                 s_qtbh = rsqtbh.getString(1);
+                s_status = rsqtbh.getString("status");
             }
 
             try {
@@ -60,6 +62,7 @@ public class ObtainInfoCheckInfo {
             }catch (SQLException e) {
                 System.out.print(e.getMessage());
             }
+            String sql="";
 
             String sql_list =  "select qtnum,question,qt_a,qt_b,qt_c,qt_d FROM work.questions   WHERE qtbh='"+s_qtbh+"' order by qtnum";
             ResultSet rslist = stmt.executeQuery(sql_list);
@@ -81,23 +84,32 @@ public class ObtainInfoCheckInfo {
                 System.out.print(e.getMessage());
             }
 
-            String sql = "select id,qtbh, name, sex, education, card, address, workunit, drvschool, \n" +
-                    "       lictype, licdt, applytp, qulfnum," +
-                    " case when (licmd!='' and licmd_goods='')   then licmd when (licmd='' and licmd_goods!='') then licmd_goods else licmd||licmd_goods  end as  licmd" +
-                    " , checklist1, promise, \n" +
-                    "       photo, status,  case  when ks_stat in  (0,1)   then '初试'  else '补考' end  as ks_status," +
-                    "       remark,scores, \n" +
-                    "       case when scores>60 then '及格' when scores>=0 and scores<60 then '不及格' else '缺考' end as result ," +
-                    "      (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>0) as right , \n" +
-                    "        (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result=0) as wrong,\n" +
-                    "       (select 100-count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>=0)as no " +
-                    " from work.trainer trainer where   trainer.id ="+session.getAttribute("id").toString();
+           if(s_status.equals("违纪")){
+                sql = "select id,qtbh, name, sex, education, card, address, workunit, drvschool, \n" +
+                       "       lictype, licdt, applytp, qulfnum," +
+                       " case when (licmd!='' and licmd_goods='')   then licmd when (licmd='' and licmd_goods!='') then licmd_goods else licmd||licmd_goods  end as  licmd" +
+                       " , checklist1, promise, \n" +
+                       "       photo, status,  case  when ks_stat in  (0,1)   then '初试'  else '补考' end  as ks_status," +
+                       "       remark, 0 as scores,   '违纪' as result ,0 as right ,0 as wrong,0 as no " +
+                       " from work.trainer trainer where   trainer.id ="+session.getAttribute("id").toString();
+           }else {
+                sql = "select id,qtbh, name, sex, education, card, address, workunit, drvschool, \n" +
+                       "       lictype, licdt, applytp, qulfnum," +
+                       " case when (licmd!='' and licmd_goods='')   then licmd when (licmd='' and licmd_goods!='') then licmd_goods else licmd||licmd_goods  end as  licmd" +
+                       " , checklist1, promise, \n" +
+                       "       photo, status,  case  when ks_stat in  (0,1)   then '初试'  else '补考' end  as ks_status," +
+                       "       remark,scores, \n" +
+                       "       case when scores>60 then '及格' when scores>=0 and scores<60 then '不及格' else '缺考' end as result ," +
+                       "      (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>0) as right , \n" +
+                       "        (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result=0) as wrong,\n" +
+                       "       (select 100-count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>=0)as no " +
+                       " from work.trainer trainer where   trainer.id =" + session.getAttribute("id").toString();
 
+           }
             rs = stmt.executeQuery(sql);
 
             ResultSetMetaData md = rs.getMetaData();
             int columnCount = md.getColumnCount();
-
 
             while (rs.next()){
                 for (int i = 1; i <= columnCount+1; i++){
@@ -107,7 +119,6 @@ public class ObtainInfoCheckInfo {
                 }
             }
             list.add(rowData);
-
         }
         catch (SQLException e){
             System.out.print(e.getMessage());
