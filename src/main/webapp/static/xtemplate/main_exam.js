@@ -77,18 +77,32 @@ var login_exam_Tpl = [
 
 function examinees_start(status) {
     if(status=="违纪"){
-        swal({
-            title: "信息提示",
-            text: "您存在违纪行为！",
-            type: "warning",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "OK ",
-            closeOnConfirm: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                document.location.href="https://www.wwyg.com:8443/jxjy/";
-            }else{
-                document.location.href="https://www.wwyg.com:8443/jxjy/";
+        Ext.Ajax.request({
+            method: "POST",
+            url:'check_wj_trainer_info',
+            success: function (response,opts) {
+                var obj=Ext.decode(response.responseText);
+                if(obj.success)
+                {
+                }else{
+                    swal({
+                        title: "信息提示",
+                        text: "您存在违纪行为！",
+                        type: "warning",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "OK ",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            document.location.href="https://www.wwyg.com:8443/jxjy/";
+                        }else{
+                            document.location.href="https://www.wwyg.com:8443/jxjy/";
+                        }
+                    });
+                }
+            },
+            failure: function () {
+                Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
             }
         });
     }else {

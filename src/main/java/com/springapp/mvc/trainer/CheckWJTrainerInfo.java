@@ -47,7 +47,7 @@ public class CheckWJTrainerInfo {
             stmt = conn.createStatement();
             int i_num_tj=0;
 
-                String sql = "select count(1) from work.trainer trainer where status='违纪'   and card='"+s_card+"'";
+             String sql = "select count(1) from work.trainer trainer where status='违纪'   and card='"+s_card+"'";
 
             rs = stmt.executeQuery(sql);
 

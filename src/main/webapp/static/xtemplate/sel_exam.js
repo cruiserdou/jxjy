@@ -60,7 +60,6 @@ function check_score(status) {
 }
 
 function check_exams_ks(status) {
-    var b_status=true;
     Ext.Ajax.request({
         method: "POST",
         url:'check_wj_trainer_info',
@@ -99,10 +98,6 @@ function check_exams_ks(status) {
                 });
 
             }else{
-                b_status=false;
-
-
-
                 swal({
                     title: "信息提示",
                     text: "您存在违纪行为！",
@@ -123,36 +118,5 @@ function check_exams_ks(status) {
             Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
         }
     });
-//alert(b_status)
-//    if(b_status) {
-//        Ext.Ajax.request({
-//            method: "POST",
-//            url: 'obtain_check_exams_info',
-//            success: function (response, opts) {
-//                var obj = Ext.decode(response.responseText);
-//                if (obj.success) {
-//                    document.location.href = "examing";
-//
-//                } else {
-//                    swal({
-//                        title: "信息提示",
-//                        text: "您已提交成绩，无法再次考试！",
-//                        type: "warning",
-//                        confirmButtonColor: "#DD6B55",
-//                        confirmButtonText: "OK ",
-//                        closeOnConfirm: false
-//                    }, function (isConfirm) {
-//                        if (isConfirm) {
-//                            document.location.href = "https://www.wwyg.com:8443/jxjy/";
-//                        } else {
-//                            document.location.href = "https://www.wwyg.com:8443/jxjy/";
-//                        }
-//                    });
-//                }
-//            },
-//            failure: function () {
-//                Ext.Msg.alert("提示", "联系系统管理员，检查考生状态！");
-//            }
-//        });
-//    }
+
 }
