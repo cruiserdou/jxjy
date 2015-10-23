@@ -481,12 +481,14 @@
         };
 
         //处理考试倒计时事件
-        var maxtime = 2700;//半个小时，按秒计算，自己调整!
+        var maxtime = 3600;//半个小时，按秒计算，自己调整!
         var timer;
         function CountDown() {
             if (maxtime >= 0) {
+
                 var minutes = Math.floor(maxtime / 60);
                 var seconds = Math.floor(maxtime % 60);
+                console.log("seconds"+maxtime);
                 var msg = "距考试结束:" + minutes + "分" + seconds + "秒";
                 if (minutes == 40 && seconds == 50){
                     var videoElement = document.getElementById('user-media');
@@ -514,7 +516,7 @@
                     });
                 };
 
-                if (minutes == 35 && seconds == 30){
+                if (minutes == 30 && seconds == 30){
                     var videoElement = document.getElementById('user-media');
                     var canvasObj = document.getElementById('canvas2');
                     var context1 = canvasObj.getContext('2d');
@@ -541,7 +543,7 @@
                     });
                 };
 
-                if (minutes == 30 && seconds == 10){
+                if (minutes == 20 && seconds == 10){
                     var videoElement = document.getElementById('user-media');
                     var canvasObj = document.getElementById('canvas3');
                     var context1 = canvasObj.getContext('2d');
@@ -569,6 +571,7 @@
 
                 document.all["timer"].innerHTML = msg;
                 --maxtime;
+                console.log("2"+maxtime);
             }
             else {
                 clearInterval(timer);
@@ -588,6 +591,7 @@
             }
         };
         timer = setInterval("CountDown()", 1000);
+
 
         function obt_answers_last(num) {
             if (num > 1) {

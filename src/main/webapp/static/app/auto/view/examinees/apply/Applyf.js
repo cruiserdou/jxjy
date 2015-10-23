@@ -124,6 +124,12 @@ Ext.define('App.view.examinees.apply.Applyf', {
                                         Ext.Msg.alert("提示", "<span style='color: red;'>电话不能为空！</span>")
                                         return;
                                     }
+
+                                    if (document.getElementById("apply_form_id_sex").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>性别不能为空！</span>")
+                                        return;
+                                    }
+
                                     if (document.getElementById("apply_form_id_address").value == "") {
                                         Ext.Msg.alert("提示", "<span style='color: red;'>详细地址不能为空！</span>")
                                         return;
@@ -145,9 +151,49 @@ Ext.define('App.view.examinees.apply.Applyf', {
                                         Ext.Msg.alert("提示", "<span style='color: red;'>申请类别不能为空！</span>")
                                         return;
                                     }
-
                                     if (document.getElementById("apply_form_id_promise").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>本人签字不能为空！</span>")
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>驾驶员签字不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_id_promisedt").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>签字日期不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_drvschool").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>继续教育培训机构不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_id_st_tk_dt").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>参加继续教育开始时间不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_id_end_tk_dt").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>参加继续教育结束时间不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_id_zq_st_tk_dt").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>参加继续周期起始年月不能为空！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_id_zq_end_tk_dt").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>参加继续周期终止年月不能为空！</span>")
+                                        return;
+                                    }
+                                    var cust_id = document.getElementById('apply_form_id_card').value;
+                                    var img_srv=document.getElementById('apply_form_img').src;
+                                    if(img_srv.indexOf(cust_id)>0){
+
+                                    }else{
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>必需上传照片！</span>")
+                                        return;
+                                    }
+
+                                    if ( document.getElementById('apply_form_img').src =='static/upload/per.png') {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>必要上传照片！</span>")
+                                        return;
+                                    }
+                                    if (document.getElementById("apply_form_remark").value == "") {
+                                        Ext.Msg.alert("提示", "<span style='color: red;'>继续教育培训机构意见不能为空！</span>")
                                         return;
                                     }
 

@@ -100,23 +100,23 @@ var login_exam_Tpl = [
 
 
 
-var maxtime = 2700 //半个小时，按秒计算，自己调整!
-function CountDown(){
-    if(maxtime>=0){
-        minutes = Math.floor(maxtime/60);
-        seconds = Math.floor(maxtime%60);
-        msg = "距离结束:"+minutes+"分"+seconds+"秒";
-        document.all["timer"].innerHTML=msg;
-        if(maxtime == 5*60) alert('注意，还有5分钟!');
-        --maxtime;
-    }
-    else{
-        clearInterval(timer);
-        alert("时间到，考试结束!");
-        obt_answers_insert('{card}','{qtbh}');
-    }
-}
-timer = setInterval("CountDown()",1000);
+//var maxtime = 3600 //半个小时，按秒计算，自己调整!
+//function CountDown(){
+//    if(maxtime>=0){
+//        minutes = Math.floor(maxtime/60);
+//        seconds = Math.floor(maxtime%60);
+//        msg = "距离结束:"+minutes+"分"+seconds+"秒";
+//        document.all["timer"].innerHTML=msg;
+//        if(maxtime == 5*60) alert('注意，还有5分钟!');
+//        --maxtime;
+//    }
+//    else{
+//        clearInterval(timer);
+//        alert("时间到，考试结束!");
+//        obt_answers_insert('{card}','{qtbh}');
+//    }
+//}
+//timer = setInterval("CountDown()",1000);
 
 var e_status_tpl =  [
     '<fieldset>' +
