@@ -21,8 +21,25 @@ Ext.define('App.view.examinees.agree.Grid', {
         this.columns = [
             {text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '考生ID', width: 80, dataIndex: 'id',hidden:true},
-            {text: '考生状态', width: 80, dataIndex: 'status'},
-            //{text: '考试状态', width: 80, dataIndex: 'ks_stat'},
+            {text: '考生状态', width: 80, dataIndex: 'status',hidden:true},
+            {text: '考试状态', width: 80, dataIndex: 'ks_stat',hidden:true},
+            {text: '考试状态', width: 160,
+                renderer:function(v,m,record){
+                    var s_status= record.get('status');
+                    var s_ks_stat= record.get('ks_stat');
+                    var s_scores= record.get('scores');
+                    if(s_status=="同意考试"){
+                        if(s_scores>60){
+                            return "合格"
+                        }else if(s_ks_stat==0 || s_ks_stat==2){
+                            return "同意考试";
+                        }else
+                            return "不及格";
+                    }else{
+                        return s_status;
+                    }
+                }},
+            {text: '成绩', width: 80, dataIndex: 'scores'},
             {text: '姓名', width: 100, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
             {text: '身份证号', width: 200, dataIndex: 'card'},
@@ -31,16 +48,7 @@ Ext.define('App.view.examinees.agree.Grid', {
             //{text: '准驾车型', width: 80, dataIndex: 'lictype'},
             //{text: '驾照初领日期', width: 120, dataIndex: 'licdt'},
             {text: '资格类别', width: 160, dataIndex: 'licmd',hidden:true},
-            //{text: '资格类别', width: 160,
-            //    renderer:function(v,m,record){
-            //        var s_licmd= record.get('licmd');
-            //        var s_licmd_goods= record.get('licmd_goods');
-            //        if(s_licmd!=null && s_licmd_goods!=null)
-            //            return s_licmd + s_licmd_goods;
-            //        else if(s_licmd==null)
-            //            return s_licmd_goods;
-            //        else return s_licmd;
-            //    }},
+
             {text: '备注', flex: 1, dataIndex: 'remark'}
         ];
 

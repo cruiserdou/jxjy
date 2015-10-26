@@ -24,7 +24,7 @@ Ext.define('App.view.examinees.info.Query', {
                     labelAlign: 'right',
                     fieldLabel: '选择驾校',
                     name: 'name',
-                    id:'drvschool_id',
+                    id:'drvschool_info_id',
                     autoRender: true,
                     autoShow: true,
                     store: Ext.create('Ext.data.Store',
@@ -48,11 +48,11 @@ Ext.define('App.view.examinees.info.Query', {
                     //value: '基本信息',
                     listeners: {
                         change: function (_this, newValue) {
-                            //alert(Ext.getCmp('drvschool_id').getValue());
+                            //alert(Ext.getCmp('drvschool_info_id').getValue());
                             var store = Ext.getCmp('grid_info_trainer').getStore();
                             store.load({
                                 params: {
-                                    drvschool: Ext.getCmp('drvschool_id').getValue()
+                                    drvschool: Ext.getCmp('drvschool_info_id').getValue()
                                 }
                             });
                         }
@@ -173,12 +173,16 @@ Ext.define('App.view.examinees.info.Query', {
                             store.load({
                                 params: {
                                     name: Ext.getCmp('examsf_query_name').getValue(),
-                                    card: Ext.getCmp('examsf_query_card').getValue()
+                                    card: Ext.getCmp('examsf_query_card').getValue(),
+                                    drvschool: Ext.getCmp('drvschool_info_id').getValue()
                                 }
                             });
                         }
                     }
                 },
+
+
+                
                 {
                     xtype: 'panel',
                     height: 10,

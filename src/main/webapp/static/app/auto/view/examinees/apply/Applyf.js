@@ -188,7 +188,6 @@ Ext.define('App.view.examinees.apply.Applyf', {
                                         return;
                                     }
 
-
                                     obt_card_check();
 
                                 }
