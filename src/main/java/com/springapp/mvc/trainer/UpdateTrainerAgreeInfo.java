@@ -48,10 +48,9 @@ public class UpdateTrainerAgreeInfo {
         try {
             conn = DriverManager.getConnection(url, user, password);
 
-//            String sql1=
 
 
-            String sql = "UPDATE work.trainer SET  status=?" +
+            String sql = "UPDATE work.trainer SET  status=? ,ks_stat=ks_stat-1" +
                     " where  card=?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, status);

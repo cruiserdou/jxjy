@@ -102,7 +102,7 @@ public class ObtainInfoCheckInfo {
                        "       case when scores>60 then '及格' when scores>=0 and scores<60 then '不及格' else '缺考' end as result ," +
                        "      (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>0) as right , \n" +
                        "        (select count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result=0) as wrong,\n" +
-                       "       (select 100-count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>=0)as no " +
+                       "       (select 50-count(result) from    work.answers  WHERE admbh=trainer.card  and qtbh=trainer.qtbh and result>=0)as no " +
                        " from work.trainer trainer where   trainer.id =" + session.getAttribute("id").toString();
 
            }

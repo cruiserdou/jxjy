@@ -62,9 +62,6 @@ public class ObtainExamNextInfo {
 
             if(i_num_tj==0 || i_num_tj==2){
 
-
-
-
                 if(i_begin==0) {
                     String sql_delete_kt = "update work.tb_exam_random_kt set  status=0  where admbh = ? and  id =(select max(id) from work.tb_exam_random_kt where admbh  =? )";
                     pst = conn.prepareStatement(sql_delete_kt);
@@ -77,7 +74,7 @@ public class ObtainExamNextInfo {
                     pst.setString(1, session.getAttribute("card").toString());
                     pst.executeUpdate();
 
-                    for (int i = 1; i <= 100; i++) {
+                    for (int i = 1; i <= 50; i++) {
                         if (i == 1) {
                             number = new Random().nextInt(150) + 1;   //这是产生1-150的随机数
                             String sql_insert = "INSERT INTO work.tb_exam_random_kt(  admbh,  qtdt,   qt_num) values(?,?,array[" + number + "])";

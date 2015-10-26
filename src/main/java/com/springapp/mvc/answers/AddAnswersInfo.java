@@ -146,7 +146,7 @@ public class AddAnswersInfo {
 
 
             //实际数据行数+标题+备注
-            int totalrow = 30;
+            int totalrow = 18;
             int totalcol = 12;
             int imageWidth = 1024;
             int imageHeight = totalrow * 30 + 90;
@@ -248,7 +248,7 @@ public class AddAnswersInfo {
             int w = 0;
             int s = 1;
             int l = 1;
-            int tj = 100;
+            int tj = 50;
             if (nColum > 0) {
                 while (rs.next()) {
                     int  num = rs.getInt(1);
@@ -325,7 +325,7 @@ public class AddAnswersInfo {
 
                 }
                 if (tj > 0) {
-                    for (int m = 101 - tj; m <= 100; m++) {
+                    for (int m = 51 - tj; m <= 50; m++) {
                         if (m % 4 == 1 && m != 1) {
                             h++;
                             w = 0;
@@ -347,7 +347,7 @@ public class AddAnswersInfo {
                     }
                 }
             } else {
-                for (int m = 1; m <= 100; m++) {
+                for (int m = 1; m <= 50; m++) {
                     if (m % 4 == 1 && m != 1) {
                         h++;
                         w = 0;
@@ -407,7 +407,7 @@ public class AddAnswersInfo {
             }else{
                 image2 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image2, startWidth + colwidth * 0, 980, 330, 250, null);
+            graphics.drawImage(image2, startWidth + colwidth * 0, 650, 330, 250, null);
 
 
             if(phone2.length()>0 && phone2 != null){
@@ -422,7 +422,7 @@ public class AddAnswersInfo {
             }else{
                 image3 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image3, startWidth + colwidth * 4 ,980, 330, 250, null);
+            graphics.drawImage(image3, startWidth + colwidth * 4 ,650, 330, 250, null);
 
 
             if(phone3.length()>0  && phone3!=null){
@@ -437,21 +437,21 @@ public class AddAnswersInfo {
             }else{
                 image4 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
-            graphics.drawImage(image4, startWidth + colwidth * 8, 980, 330, 250, null);
+            graphics.drawImage(image4, startWidth + colwidth * 8, 650, 330, 250, null);
 
 
 
-            graphics.drawString("考试签字:", colwidth * 0 + 40, 1280);
-            graphics.drawString("        ", colwidth * 2, 1280);
-            graphics.drawLine(colwidth + 30, 1290, colwidth * 3 + 50, 1290);
-            graphics.drawString("监考签字:", colwidth * 4 + 40, 1280);
-            graphics.drawString("        ", colwidth * 6, 1280);
-            graphics.drawLine(colwidth * 5 + 30, 1290, colwidth * 7 + 50, 1290);
-            graphics.drawString("考试时间:", colwidth * 8 + 50, 1280);
-            graphics.drawString(now_dt, colwidth * 10, 1280);
-            graphics.drawLine(colwidth * 9 + 40, 1290, colwidth * 11 + 50, 1290);
-            graphics.drawString("本次继续教育有效期至         年         月         日    ", colwidth * 7 + 40, 1320);
-            graphics.drawString("                      (签章)", colwidth * 8 + 50, 1360);
+            graphics.drawString("考试签字:", colwidth * 0 + 40, 980);
+            graphics.drawString("        ", colwidth * 2, 980);
+            graphics.drawLine(colwidth + 30, 990, colwidth * 3 + 50, 990);
+            graphics.drawString("监考签字:", colwidth * 4 + 40, 980);
+            graphics.drawString("        ", colwidth * 6, 980);
+            graphics.drawLine(colwidth * 5 + 30, 990, colwidth * 7 + 50, 990);
+            graphics.drawString("考试时间:", colwidth * 8 + 50, 980);
+            graphics.drawString(now_dt, colwidth * 10, 980);
+            graphics.drawLine(colwidth * 9 + 40, 990, colwidth * 11 + 50, 990);
+            graphics.drawString("本次继续教育有效期至         年         月         日    ", colwidth * 7 + 40, 1020);
+            graphics.drawString("                      (签章)", colwidth * 8 + 50, 1060);
 
 
             File annexfile5 = new File(projectPath + "/" + card + "_s.jpg");

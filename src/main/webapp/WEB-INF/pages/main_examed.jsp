@@ -481,14 +481,13 @@
         };
 
         //处理考试倒计时事件
-        var maxtime = 3600;//半个小时，按秒计算，自己调整!
+        var maxtime = 3000;//半个小时，按秒计算，自己调整!
         var timer;
         function CountDown() {
             if (maxtime >= 0) {
 
                 var minutes = Math.floor(maxtime / 60);
                 var seconds = Math.floor(maxtime % 60);
-                console.log("seconds"+maxtime);
                 var msg = "距考试结束:" + minutes + "分" + seconds + "秒";
                 if (minutes == 40 && seconds == 50){
                     var videoElement = document.getElementById('user-media');
@@ -571,7 +570,6 @@
 
                 document.all["timer"].innerHTML = msg;
                 --maxtime;
-                console.log("2"+maxtime);
             }
             else {
                 clearInterval(timer);

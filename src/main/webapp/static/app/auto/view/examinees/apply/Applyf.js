@@ -188,14 +188,6 @@ Ext.define('App.view.examinees.apply.Applyf', {
                                         return;
                                     }
 
-                                    if ( document.getElementById('apply_form_img').src =='static/upload/per.png') {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>必要上传照片！</span>")
-                                        return;
-                                    }
-                                    if (document.getElementById("apply_form_remark").value == "") {
-                                        Ext.Msg.alert("提示", "<span style='color: red;'>继续教育培训机构意见不能为空！</span>")
-                                        return;
-                                    }
 
                                     obt_card_check();
 

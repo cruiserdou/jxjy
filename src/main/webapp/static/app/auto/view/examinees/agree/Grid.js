@@ -22,6 +22,7 @@ Ext.define('App.view.examinees.agree.Grid', {
             {text: '驾校名称', width: 150, dataIndex: 'drvschool'},
             {text: '考生ID', width: 80, dataIndex: 'id',hidden:true},
             {text: '考生状态', width: 80, dataIndex: 'status'},
+            //{text: '考试状态', width: 80, dataIndex: 'ks_stat'},
             {text: '姓名', width: 100, dataIndex: 'name'},
             {text: '性别', width: 60, dataIndex: 'sex'},
             {text: '身份证号', width: 200, dataIndex: 'card'},

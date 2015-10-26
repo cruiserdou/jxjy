@@ -47,8 +47,8 @@ public class ObtainInfoCheckScoreInfo {
             ResultSet rs_tj = null;
             int i_wrong=0;
             int i_right=0;
-            int i_no=100;
-            String sql_tj = "select coalesce(sum(case when result=0 then 1 else 0 end),0) as wrong  , coalesce(sum(case when result=1 then 1 else 0 end),0) as right\n" +
+            int i_no=50;
+            String sql_tj = "select coalesce(sum(case when result=0 then 1 else 0 end),0) as wrong  , coalesce(sum(case when result=2 then 1 else 0 end),0) as right\n" +
                     " from work.answers answers,work.trainer trainer " +
                     " where  admbh=trainer.card  and answers.qtbh=trainer.qtbh and  trainer.id ="+session.getAttribute("id").toString();
 
