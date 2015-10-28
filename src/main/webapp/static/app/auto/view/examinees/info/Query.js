@@ -180,9 +180,6 @@ Ext.define('App.view.examinees.info.Query', {
                         }
                     }
                 },
-
-
-                
                 {
                     xtype: 'panel',
                     height: 10,

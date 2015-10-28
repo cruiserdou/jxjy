@@ -27,7 +27,8 @@ public class ObtainTrainerNextexamInfo {
     DataShop getShopInJSON(
 
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "card", required = false) String card
+            @RequestParam(value = "card", required = false) String card,
+            @RequestParam(value = "drvschool", required = false) String drvschool
     )  throws Exception{
         Connection conn = null;
         Statement stmt = null;
@@ -60,6 +61,8 @@ public class ObtainTrainerNextexamInfo {
 
             if (card != null && card.length() != 0)
                 sql += " and card like '%" + card + "%'";
+            if (drvschool != null && drvschool.length() != 0)
+                sql += " and drvschool like '%" + drvschool + "%'";
 
             rs = stmt.executeQuery(sql);
 

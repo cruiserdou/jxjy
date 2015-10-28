@@ -17,6 +17,46 @@ Ext.define('App.view.nextexam.Query', {
             border: true,
             items: [
                 {
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_nextexam_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name',
+                    //value: '基本信息',
+                    listeners: {
+                        change: function (_this, newValue) {
+                            //alert(Ext.getCmp('drvschool_id').getValue());
+                            var store = Ext.getCmp('grid_nextexam_trainer').getStore();
+                            store.load({
+                                params: {
+                                    drvschool: Ext.getCmp('drvschool_nextexam_id').getValue()
+                                }
+                            });
+                        }
+                    }
+                },
+                {
                     text: '同意补考',
                     iconCls: 'icon_edit',
                     handler: function () {
@@ -107,7 +147,8 @@ Ext.define('App.view.nextexam.Query', {
                             store.load({
                                 params: {
                                     name: Ext.getCmp('nextexam_trainer_name').getValue(),
-                                    card: Ext.getCmp('nextexam_trainer_card').getValue()
+                                    card: Ext.getCmp('nextexam_trainer_card').getValue(),
+                                    drvschool: Ext.getCmp('drvschool_id').getValue()
                                 }
                             });
                         }

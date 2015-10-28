@@ -50,10 +50,11 @@ public class UpdateTrainerAgreeInfo {
 
 
 
-            String sql = "UPDATE work.trainer SET  status=? ,ks_stat=ks_stat-1" +
+            String sql = "UPDATE work.trainer SET  status=? ,ks_stat=0" +
                     " where  card=?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, status);
+            pst.setInt(2, 0);
             pst.setString(2, card);
             pst.executeUpdate();
 
