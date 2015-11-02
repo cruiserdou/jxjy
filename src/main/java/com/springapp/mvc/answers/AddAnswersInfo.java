@@ -23,6 +23,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/add_answers_info")
@@ -60,18 +61,18 @@ public class AddAnswersInfo {
         String url = connstr.getUrl();
         String user = connstr.getUser();
         String password = connstr.getPassword();
-
         try {
             conn = DriverManager.getConnection(url, user, password);
             java.util.Date date = new java.util.Date();
             Timestamp timestamp = new Timestamp(date.getTime());
 
             stmt = conn.createStatement();
-            int i_ks_stat_num=0;
-            String sql_ks_stat = " select ks_stat  from   work.trainer  WHERE card ='"+admbh+"'";
+            int i_ks_stat_num=0;int i_specific_num=0;
+            String sql_ks_stat = " select ks_stat,specific  from   work.trainer  WHERE card ='"+admbh+"'";
             rs_answer = stmt.executeQuery(sql_ks_stat);
             while (rs_answer.next()) {
                 i_ks_stat_num = rs_answer.getInt(1);
+                i_specific_num = rs_answer.getInt(2);
                 if(i_ks_stat_num==0 ){
                     String sql_ks = "UPDATE work.trainer SET ks_stat=1 , examtm='"+timestamp+"' where card ='"+admbh+"'";
                     pst = conn.prepareStatement(sql_ks);
@@ -91,19 +92,55 @@ public class AddAnswersInfo {
             }else{
                 String[] answer_i = answer.split(",");
                 int n=answer_i.length/2;
-                for(int i=0; i<n; i++) {
+                if(i_specific_num==0){
+                    for(int i=0; i<n; i++) {
 
-                    String sql_answers_new = "insert into work.answers" +
-                            "(admbh, qtbh, qtnum, answer,xh) " +
-                            " values(?, ?,  ( select qt_num["+Integer.parseInt(answer_i[2*i+qtnum-1])+"]  from  work.tb_exam_random_kt where  status=1 and admbh= ?), ?,?)";
-                    pst = conn.prepareStatement(sql_answers_new);
-                    pst.setString(1, admbh);
-                    pst.setString(2, qtbh);
-//                    pst.setInt(3, Integer.parseInt(answer_i[2*i+qtnum-1]));
-                    pst.setString(3, session.getAttribute("card").toString());
-                    pst.setString(4, answer_i[2*i+1]);
-                    pst.setInt(5, Integer.parseInt(answer_i[2 * i + qtnum - 1]));
-                    pst.executeUpdate();
+                        String sql_answers_new = "insert into work.answers" +
+                                "(admbh, qtbh, qtnum, answer,xh) " +
+                                " values(?, ?,  ( select qt_num["+Integer.parseInt(answer_i[2*i+qtnum-1])+"]  from  work.tb_exam_random_kt where  status=1 and admbh= ?), ?,?)";
+                        pst = conn.prepareStatement(sql_answers_new);
+                        pst.setString(1, admbh);
+                        pst.setString(2, qtbh);
+                        pst.setString(3, session.getAttribute("card").toString());
+                        pst.setString(4, answer_i[2*i+1]);
+                        pst.setInt(5, Integer.parseInt(answer_i[2 * i + qtnum - 1]));
+                        pst.executeUpdate();
+                    }
+                }else{
+                    int max=20;
+                    int min=15;
+                    Random random = new Random();
+                    int specific  =  51-(random.nextInt(max)%(max-min+1) + min);
+                    for(int j=1; j<=specific; j++) {
+                        String    sql_answers_new = "insert into work.answers" +
+                                "(admbh, qtbh, qtnum, answer,xh) " +
+                                " values(?, ?,  " +
+                                "  ( select qt_num["+j+"]  from  work.tb_exam_random_kt where  status=1 and admbh= ?)," +
+                                "  ( select answer  from  work.questions where  qtbh=? and qtnum=  ( select qt_num["+j+"]  from  work.tb_exam_random_kt where  status=1 and admbh= ?)),?)";
+
+                        pst = conn.prepareStatement(sql_answers_new);
+                        pst.setString(1, admbh);
+                        pst.setString(2, qtbh);
+                        pst.setString(3, session.getAttribute("card").toString());
+                        pst.setString(4, qtbh);
+                        pst.setString(5, session.getAttribute("card").toString());
+                        pst.setInt(6, j);
+                        pst.executeUpdate();
+                    }
+                    for(int i=0; i<n; i++) {
+                       if(Integer.parseInt(answer_i[2 * i + qtnum - 1])>specific){
+                           String sql_answers_new = "insert into work.answers" +
+                                   "(admbh, qtbh, qtnum, answer,xh) " +
+                                   " values(?, ?,  ( select qt_num["+Integer.parseInt(answer_i[2*i+qtnum-1])+"]  from  work.tb_exam_random_kt where  status=1 and admbh= ?), ?,?)";
+                           pst = conn.prepareStatement(sql_answers_new);
+                           pst.setString(1, admbh);
+                           pst.setString(2, qtbh);
+                           pst.setString(3, session.getAttribute("card").toString());
+                           pst.setString(4, answer_i[2*i+1]);
+                           pst.setInt(5, Integer.parseInt(answer_i[2 * i + qtnum - 1]));
+                           pst.executeUpdate();
+                       }
+                    }
                 }
             }
 
@@ -111,7 +148,6 @@ public class AddAnswersInfo {
             pst = conn.prepareStatement(sql_update_begin);
             pst.setString(1, session.getAttribute("card").toString());
             pst.executeUpdate();
-
 
             String projectPath = request.getSession().getServletContext().getRealPath("/static/upload/");
             String card ="";
@@ -144,7 +180,6 @@ public class AddAnswersInfo {
 
             BufferedImage image = null;
 
-
             //实际数据行数+标题+备注
             int totalrow = 18;
             int totalcol = 12;
@@ -175,18 +210,15 @@ public class AddAnswersInfo {
                 graphics.drawLine(startWidth + k * colwidth, startHeight + rowheight, startWidth + k * colwidth, imageHeight - 20);
             }
 
-            //设置字体
             Font font = new Font("华文楷体", Font.PLAIN, 20);
             graphics.setFont(font);
 
-            //写标题
             String title = "经营性道路继续教育考试成绩单";
             graphics.drawString(title, imageWidth / 3 + startWidth, 30);
 
             font = new Font("WenQuanYi Bitmap Song", Font.PLAIN, 16);
             graphics.setFont(font);
             int colwidth_con = 50;
-
 
             graphics.setColor(Color.black);
             graphics.drawLine(startWidth, 40, colwidth * 9 + 20, 40);
@@ -211,7 +243,6 @@ public class AddAnswersInfo {
             graphics.drawString("考试成绩", colwidth_con, 180);
             graphics.drawString(String.valueOf(scores) + "分", colwidth_con * 4 + 20, 180);
 
-
             Image image1=null;
 
             if(photo.length()>0){
@@ -227,8 +258,6 @@ public class AddAnswersInfo {
             }
             graphics.drawImage(image1, colwidth_con * 15 + 10, 40, 245, 150, null);
 
-//            Image image1 = new ImageIcon(projectPath +"/"+ photo).getImage();
-//            graphics.drawImage(image1, colwidth_con * 15 + 20, 40, 245, 150, null);
             //写入表头
             String[] headCells = {"序号1", "答案", "阅卷", "序号2", "答案", "阅卷", "序号3", "答案", "阅卷", "序号4", "答案", "阅卷"};
             for (int m = 0; m < headCells.length; m++) {
@@ -321,8 +350,6 @@ public class AddAnswersInfo {
                             tj--;
                         }
                     }
-
-
                 }
                 if (tj > 0) {
                     for (int m = 51 - tj; m <= 50; m++) {
@@ -335,7 +362,6 @@ public class AddAnswersInfo {
                             w++;
                             graphics.drawString("囗", startWidth + colwidth * w + 20, startHeight + rowheight * (h + 3) - 10);
                             w++;
-
                         } else {
                             graphics.drawString(String.valueOf(m), startWidth + colwidth * w + 20, startHeight + rowheight * (h + 3) - 10);
                             w++;
@@ -357,7 +383,6 @@ public class AddAnswersInfo {
                         w++;
                         graphics.drawString("囗", startWidth + colwidth * w + 20, startHeight + rowheight * (h + 3) - 10);
                         w++;
-
                     } else {
                         graphics.drawString(String.valueOf(m), startWidth + colwidth * w + 20, startHeight + rowheight * (h + 3) - 10);
                         w++;
@@ -366,7 +391,6 @@ public class AddAnswersInfo {
                         graphics.drawString("囗", startWidth + colwidth * w + 20, startHeight + rowheight * (h + 3) - 10);
                         w++;
                     }
-
                 }
             }
             //设置字体
@@ -388,7 +412,6 @@ public class AddAnswersInfo {
                 phone3 = rs_phone.getString("img3");
             }
 
-            //设置字体
             font = new Font("华文楷体",Font.PLAIN,16);
             graphics.setFont(font);
             Image image2=null;
@@ -399,47 +422,37 @@ public class AddAnswersInfo {
                 File annexfile2 = new File(projectPath + "/" + phone1);
                 if (annexfile2.exists()) {
                     image2 = new ImageIcon(projectPath + "/" + phone1).getImage();
-
                 }else{
                     image2 = new ImageIcon(projectPath + "/" + "per.png").getImage();
                 }
-
             }else{
                 image2 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
             graphics.drawImage(image2, startWidth + colwidth * 0, 650, 330, 250, null);
 
-
             if(phone2.length()>0 && phone2 != null){
                 File annexfile3 = new File(projectPath + "/" + phone2);
                 if (annexfile3.exists()) {
                     image3 = new ImageIcon(projectPath + "/" + phone2).getImage();
-
                 }else {
                     image3 = new ImageIcon(projectPath + "/" + "per.png").getImage();
                 }
-
             }else{
                 image3 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
             graphics.drawImage(image3, startWidth + colwidth * 4 ,650, 330, 250, null);
 
-
             if(phone3.length()>0  && phone3!=null){
                 File annexfile4 = new File(projectPath + "/" + phone3);
                 if (annexfile4.exists()) {
                     image4 = new ImageIcon(projectPath + "/" + phone3).getImage();
-
                 } else {
                     image4 = new ImageIcon(projectPath + "/" + "per.png").getImage();
                 }
-
             }else{
                 image4 = new ImageIcon(projectPath + "/" + "per.png").getImage();
             }
             graphics.drawImage(image4, startWidth + colwidth * 8, 650, 330, 250, null);
-
-
 
             graphics.drawString("考试签字:", colwidth * 0 + 40, 980);
             graphics.drawString("        ", colwidth * 2, 980);
@@ -472,8 +485,6 @@ public class AddAnswersInfo {
                 e.printStackTrace();
             }
 
-
-
             dataShop.setSuccess(true);
         } catch (SQLException e) {
             System.out.print(e.getMessage());
@@ -487,7 +498,6 @@ public class AddAnswersInfo {
                 System.out.print(e.getMessage());
             }
         }
-
         return dataShop;
     }
 }

@@ -38,7 +38,8 @@ Ext.define('App.model.syj_trainer', {
         {name: 'end_tk_dt'},
         {name: 'zq_st_tk_dt'},
         {name: 'zq_end_tk_dt'},
-        {name: 'ks_stat'}
+        {name: 'ks_stat'},
+        {name: 'specific'}
 
     ]
 //    groupField:drvschool

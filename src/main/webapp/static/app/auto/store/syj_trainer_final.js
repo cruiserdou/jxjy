@@ -5,9 +5,6 @@ Ext.define('App.store.syj_trainer_final', {
     proxy: {
         type: 'ajax',
         url: 'obtain_trainers_info',
-        extraParams:{
-            status: '初审'
-        },
         actionMethods: {
             read: 'POST'
         },

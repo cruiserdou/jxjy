@@ -25,16 +25,16 @@ Ext.define('App.view.examinees.final.Grid', {
             //{text: '准驾车型', width: 80, dataIndex: 'lictype'},
             //{text: '驾照初领日期', width: 100, dataIndex: 'licdt'},
             {text: '资格类别', width: 160, dataIndex: 'licmd',hidden:true},
-            //{text: '资格类别', width: 160,
-            //    renderer:function(v,m,record){
-            //        var s_licmd= record.get('licmd');
-            //        var s_licmd_goods= record.get('licmd_goods');
-            //        if(s_licmd!=null && s_licmd_goods!=null)
-            //            return s_licmd + s_licmd_goods;
-            //        else if(s_licmd==null)
-            //            return s_licmd_goods;
-            //        else return s_licmd;
-            //    }},
+            {text: '标记状态', width: 90, dataIndex: 'specific',
+                renderer: function(val){
+                    if(val ==0 ){
+                        return  "<span style='color: red;'>未标记</span>";
+
+                    }else{
+                        return "<span style='color: green;'>已标记</span>";
+                    }
+                }
+            },
             {text: '备注', flex: 1, dataIndex: 'remark'}
         ];
 

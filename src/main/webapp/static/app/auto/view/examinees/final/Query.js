@@ -17,11 +17,51 @@ Ext.define('App.view.examinees.final.Query', {
             border: true,
             items: [
                 {
-                    text: '终审',
-                    iconCls: 'icon_edit',
+                    xtype: 'combobox',
+                    labelWidth: 70,
+                    labelAlign: 'right',
+                    fieldLabel: '选择驾校',
+                    name: 'name',
+                    id:'drvschool_final_id',
+                    autoRender: true,
+                    autoShow: true,
+                    store: Ext.create('Ext.data.Store',
+                        {
+                            extend: 'Ext.data.Store',
+                            model: 'App.model.syj_drvschool',
+                            proxy: {
+                                type: 'ajax',
+                                url: 'obtain_drvschool_info',
+                                actionMethods: {
+                                    read: 'POST'
+                                },
+                                reader: {
+                                    type: 'json',
+                                    root: 'list'
+                                }
+                            }
+                        }),
+                    displayField: 'name',
+                    valueField: 'name',
+                    //value: '基本信息',
+                    listeners: {
+                        change: function (_this, newValue) {
+                            var store = Ext.getCmp('grid_finals_trainer').getStore();
+                            store.load({
+                                params: {
+                                    drvschool: Ext.getCmp('drvschool_final_id').getValue()
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: '标记',
+                    id: 'agrees_specific',
+                    iconCls: 'icon_delete',
                     handler: function () {
 
-                        Ext.Msg.confirm('信息', '确定要终审？', function (btn) {
+                        Ext.Msg.confirm('信息', '确定要标记考生？', function (btn) {
                             if (btn == 'yes') {
                                 var sm = Ext.getCmp('grid_finals_trainer').getSelectionModel();
                                 var rows = sm.getSelection();
@@ -31,44 +71,23 @@ Ext.define('App.view.examinees.final.Query', {
                                         var row = rows[i];
                                         var id = row.get('id');
                                         Ext.Ajax.request({
-                                            url: 'update_trainer_info',
+                                            url: 'update_trainer_specific_info',
                                             params: {
                                                 "id": id,
-                                                "status": '终审',
-                                                "name": row.get('name'),
-                                                "sex": row.get('sex'),
-                                                "education": row.get('education'),
-                                                "card": row.get('card'),
-                                                "address": row.get('address'),
-                                                "workunit": row.get('workunit'),
-                                                "drvschool": row.get('drvschool'),
-                                                "lictype": row.get('lictype'),
-                                                "licdt": row.get('licdt'),
-                                                "applytp": row.get('applytp'),
-                                                "qulfnum": row.get('qulfnum'),
-                                                "licmd": row.get('licmd'),
-                                                "checklist1": row.get('checklist1'),
-                                                "checklist2": row.get('checklist2'),
-                                                "checklist3": row.get('checklist3'),
-                                                "checklist4": row.get('checklist4'),
-                                                "checklist5": row.get('checklist5'),
-                                                "promise": row.get('promise'),
-                                                "remark": row.get('remark'),
-                                                "licmd_goods": row.get('licmd_goods'),
-                                                "promisedt": row.get('promisedt')
+                                                "card": row.get('card')
                                             },
-                                            waitMsg: '正在终审数据...',
+                                            waitMsg: '正在标记考生数据...',
                                             success: function (form, action) {
-                                                Ext.Msg.alert("成功", "数据终审成功!");
+                                                Ext.Msg.alert("成功", "标记考生成功!");
                                                 Ext.getCmp('grid_finals_trainer').getStore().reload();
                                             },
                                             failure: function (form, action) {
-                                                Ext.Msg.alert("失败", "数据终审失败!");
+                                                Ext.Msg.alert("失败", "标记考生失败!");
                                             }
                                         });
                                     }
                                 } else {
-                                    Ext.Msg.alert('提示', '请选择要终审的记录');
+                                    Ext.Msg.alert('提示', '请选择要标记考生的记录');
                                 }
                             }
                         });
@@ -131,7 +150,8 @@ Ext.define('App.view.examinees.final.Query', {
                             store.load({
                                 params: {
                                     name: Ext.getCmp('finalf_query_name').getValue(),
-                                    status: Ext.getCmp('finalf_query_status').getValue()
+                                    status: Ext.getCmp('finalf_query_status').getValue(),
+                                    drvschool: Ext.getCmp('drvschool_final_id').getValue()
                                 }
                             });
                         }
