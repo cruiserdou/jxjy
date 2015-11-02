@@ -12,121 +12,83 @@ Ext.define('App.view.examinees.info.Query', {
     defaultType: 'textfield',
     layout: 'column',
     id:'examinees_query_id',
+
+
     dockedItems: [
         {
             xtype: 'toolbar',
             dock: 'top',
             border: true,
             items: [
-                {
-                    xtype: 'combobox',
-                    labelWidth: 70,
-                    labelAlign: 'right',
-                    fieldLabel: '选择驾校',
-                    name: 'name',
-                    id:'drvschool_info_id',
-                    autoRender: true,
-                    autoShow: true,
-                    store: Ext.create('Ext.data.Store',
-                        {
-                            extend: 'Ext.data.Store',
-                            model: 'App.model.syj_drvschool',
-                            proxy: {
-                                type: 'ajax',
-                                url: 'obtain_drvschool_info',
-                                actionMethods: {
-                                    read: 'POST'
-                                },
-                                reader: {
-                                    type: 'json',
-                                    root: 'list'
-                                }
-                            }
-                        }),
-                    displayField: 'name',
-                    valueField: 'name',
-                    //value: '基本信息',
-                    listeners: {
-                        change: function (_this, newValue) {
-                            //alert(Ext.getCmp('drvschool_info_id').getValue());
-                            var store = Ext.getCmp('grid_info_trainer').getStore();
-                            store.load({
-                                params: {
-                                    drvschool: Ext.getCmp('drvschool_info_id').getValue()
-                                }
-                            });
-                        }
-                    }
+
+              {
+                  text: '刷新',
+                  xtype: 'combobox',
+                  labelWidth: 70,
+                  labelAlign: 'right',
+                  fieldLabel: '选择驾校',
+                  name: 'name',
+                  id: 'drvschool_info_id',
+                  autoRender: true,
+                  autoShow: true,
+                  store: Ext.create('Ext.data.Store',
+                      {
+                          extend: 'Ext.data.Store',
+                          model: 'App.model.syj_drvschool',
+                          proxy: {
+                              type: 'ajax',
+                              url: 'obtain_drvschool_info',
+                              actionMethods: {
+                                  read: 'POST'
+                              },
+                              reader: {
+                                  type: 'json',
+                                  root: 'list'
+                              }
+                          }
+                      }),
+                  displayField: 'name',
+                  valueField: 'name',
+                  listeners: {
+                      afterrender: function (_this) {
+                          Ext.Ajax.request({
+                              method: 'POST',
+                              url: 'check_login_drvschool_info',
+                              success: function (response, opts) {
+                                  var obj = Ext.decode(response.responseText);
+                                  if (!obj.success) {
+                                      Ext.getCmp('drvschool_info_id').setDisabled(true);
+                                      Ext.getCmp("drvschool_info_id").hide();
+                                      return;
+                                  } else {
+                                      var store = Ext.getCmp('grid_info_trainer').getStore();
+                                      store.load({
+                                          params: {
+                                              drvschool: Ext.getCmp('drvschool_info_id').getValue()
+                                          }
+                                      });
+                                  }
+                              },
+                              failure: function (response, opts) {
+                                  Ext.Msg.alert("提示", "请联系管理员！");
+                                  return;
+                              }
+                          });
+
+                      }
+                  }
                 },
                 {
                     text: '刷新',
                     iconCls: 'icon_table_refresh',
                     listeners: {
-                        click: function(_this){
+                        click: function (_this) {
                             _this.up('form').getForm().reset();
                             Ext.getCmp('grid_info_trainer').getStore().load();
                         }
                     }
                 }
-
-//                {
-//                    text: '打印成绩单',
-//                    id: 'scores_edit',
-//                    iconCls: 'icon_edit',
-//                    handler: function(){
-//                        var sm = Ext.getCmp('grid_info_trainer').getSelectionModel();
-//                        var record = sm.getSelection()[0];
-//                        card=record.get('card');
-//
-//                        if(!record){
-//                            Ext.Msg.alert('信息','请选择要打印的数据');
-//                            return;
-//                        }
-//
-//                        var editForm = null;
-//                        var editWindow = null;
-//                        editForm = new Ext.form.FormPanel({
-//                            frame: true,
-//                            fieldDefaults: {
-//                                labelAlign: 'right',
-//                                labelWidth: 70
-//                            },
-//                            defaults: {
-//                                xtype: 'textfield'
-//                            },
-//                            items: [
-//                                {
-//                                    hidden: 'true',
-//                                    fieldLabel: '身份证',
-//                                    name: 'card'
-//                                },
-//                                {
-//                                    xtype: 'panel',
-//                                    bodyPadding: '20',
-//                                    flex: 1,
-//                                    html: '<a onclick="trainer_export(card);"  href="#"><img style="height: 32px; margin-left: 50px;" src="static/css/images/doc.png" />导出</a><br/>'
-//                                },
-//                                {
-//                                    xtype: 'panel',
-//                                    flex: 1,
-//                                    bodyPadding: '20',
-//                                    html: '<a href="static/upload/'+card+'.docx"><img style="width: 32px; margin-left: 50px;" src="static/css/images/cloud-download.png" />下载</a>'
-//                                }
-//                            ]
-//                        });
-//                        editWindow = new Ext.Window({
-//                            layout: 'fit',
-//                            width: 200,
-//                            height: 200,
-//                            modal: true,
-//                            title: '打印成绩单',
-//                            items: [editForm]
-//                        });
-//                        editWindow.show(Ext.get('scores_edit'));
-//                        editForm.getForm().loadRecord(record);
-//                    }
-//                }
-                ]
+            ]
         }
     ],
 

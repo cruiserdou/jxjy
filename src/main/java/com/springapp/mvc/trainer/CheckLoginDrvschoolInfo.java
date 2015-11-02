@@ -1,11 +1,7 @@
-package com.springapp.mvc.drvschool;
+package com.springapp.mvc.trainer;
 
-/**
- * Created by xwq on 14-4-15.
- */
 
 import com.xwq.common.model.DataShop;
-import com.xwq.common.util.ConvertToList;
 import com.xwq.common.util.DBInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,24 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/obtain_drvschool_info")
-public class ObtainDrvschoolInfo {
+@RequestMapping("/check_login_drvschool_info")
+public class CheckLoginDrvschoolInfo {
 
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
     DataShop getShopInJSON(
-            HttpSession session,
-            @RequestParam(value = "name", required = false) String name
+            HttpSession session
     ) throws Exception{
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        ResultSet rs_drvschool = null;
+
 
         DataShop dataShop = new DataShop();
         List list = new ArrayList();
-        String s_drvschool = session.getAttribute("user").toString();
+
         try{
             Class.forName("org.postgresql.Driver").newInstance();
         }catch (Exception e){
@@ -49,28 +44,22 @@ public class ObtainDrvschoolInfo {
         try{
             conn = DriverManager.getConnection(url, user, password);
             stmt = conn.createStatement();
-
             int i_num_tj=0;
-            String sql_drvschool = "select  count(1) as num_tj " +
-                    " from work.drvschool WHERE  name='"+s_drvschool+"'";
+             String sql = "select  count(1) as num_tj \n" +
+                     "  from   work.userroles   " +
+                     "   WHERE   rolename='驾校' and    userid="+Integer.parseInt(session.getAttribute("id").toString());
 
-            rs_drvschool = stmt.executeQuery(sql_drvschool);
-            String sql ="";
-            while (rs_drvschool.next()) {
-                i_num_tj = rs_drvschool.getInt(1);
-                if(i_num_tj==0 || rs_drvschool.getString(1) == null){
-                    sql = "select * from work.drvschool WHERE 1 = 1   ";
-                }else
-                {
-                    sql = "select * from work.drvschool WHERE  name='"+s_drvschool+"'";
-                }
-            }
-
-            if (name != null && name.length() != 0)
-                sql += " and name like '%" + name + "%'";
             rs = stmt.executeQuery(sql);
 
-            list = new ConvertToList().convertList(rs);
+            while (rs.next()) {
+                i_num_tj = rs.getInt(1);
+                if(i_num_tj==0 || rs.getString(1) == null){
+                    dataShop.setSuccess(true);
+                }else
+                {
+                    dataShop.setSuccess(false);
+                }
+            }
 
         }catch (SQLException e){
             System.out.print(e.getMessage());
@@ -84,8 +73,6 @@ public class ObtainDrvschoolInfo {
             }
         }
 
-        dataShop.setSuccess(true);
-        dataShop.setList(list);
 
         return dataShop;
     }

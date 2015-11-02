@@ -77,10 +77,9 @@ public class ObtainTrainerInfo {
                 }else
                 {
                     sql_d = "select * from work.trainer WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
-                    sql_c = "select count(*) from work.drvschool  corp WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
+                    sql_c = "select count(*) from work.trainer   WHERE drvschool='"+s_drvschool+"' and pxnum=0  ";
                 }
             }
-
 
             if (name != null && name.length() != 0){
                 sql_s += " and name like '%" + name + "%'";
@@ -100,12 +99,9 @@ public class ObtainTrainerInfo {
             }
             sql_c += sql_s;
 
-//            sql_s += " order by  corp.id desc ";
             sql_d += sql_s;
             if( !b_check==true)
                 sql_d += " limit " + limit + " offset " + start;
-
-
 
             rs = stmt.executeQuery(sql_d);
             list = new ConvertToList().convertList(rs);
