@@ -58,7 +58,7 @@ Ext.define('App.view.examinees.final.Query', {
                 {
                     text: '标记',
                     id: 'agrees_specific',
-                    iconCls: 'icon_delete',
+                    iconCls: 'icon_edit',
                     handler: function () {
 
                         Ext.Msg.confirm('信息', '确定要标记考生？', function (btn) {
@@ -74,6 +74,46 @@ Ext.define('App.view.examinees.final.Query', {
                                             url: 'update_trainer_specific_info',
                                             params: {
                                                 "id": id,
+                                                "specific": 1,
+                                                "card": row.get('card')
+                                            },
+                                            waitMsg: '正在标记考生数据...',
+                                            success: function (form, action) {
+                                                Ext.Msg.alert("成功", "标记考生成功!");
+                                                Ext.getCmp('grid_finals_trainer').getStore().reload();
+                                            },
+                                            failure: function (form, action) {
+                                                Ext.Msg.alert("失败", "标记考生失败!");
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Ext.Msg.alert('提示', '请选择要标记考生的记录');
+                                }
+                            }
+                        });
+                    }
+                },
+                {
+                    text: '取消标记',
+                    id: 'agrees_no_specific',
+                    iconCls: 'icon_edit',
+                    handler: function () {
+
+                        Ext.Msg.confirm('信息', '确定要标记考生？', function (btn) {
+                            if (btn == 'yes') {
+                                var sm = Ext.getCmp('grid_finals_trainer').getSelectionModel();
+                                var rows = sm.getSelection();
+
+                                if (rows.length > 0) {
+                                    for (var i = 0; i < rows.length; i++) {
+                                        var row = rows[i];
+                                        var id = row.get('id');
+                                        Ext.Ajax.request({
+                                            url: 'update_trainer_specific_info',
+                                            params: {
+                                                "id": id,
+                                                "specific": 0,
                                                 "card": row.get('card')
                                             },
                                             waitMsg: '正在标记考生数据...',

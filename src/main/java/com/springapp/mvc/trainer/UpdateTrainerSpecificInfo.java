@@ -26,9 +26,10 @@ public class UpdateTrainerSpecificInfo {
     @ResponseBody
     DataShop getShopInJSON(
             @RequestParam("id") Integer id,
+            @RequestParam("specific") Integer specific,
             @RequestParam("card") String card
 
-            ) throws Exception{
+    ) throws Exception{
         DataShop dataShop = new DataShop();
         dataShop.setSuccess(true);
         Connection conn = null;
@@ -49,10 +50,11 @@ public class UpdateTrainerSpecificInfo {
 
 
 
-            String sql = "UPDATE work.trainer SET  specific=1" +
+            String sql = "UPDATE work.trainer SET  specific=?" +
                     " where  card=?";
             pst = conn.prepareStatement(sql);
-            pst.setString(1, card);
+            pst.setInt(1, specific);
+            pst.setString(2, card);
             pst.executeUpdate();
 
             dataShop.setSuccess(true);
