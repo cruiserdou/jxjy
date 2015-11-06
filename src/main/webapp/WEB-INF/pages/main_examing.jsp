@@ -22,9 +22,6 @@
         }
     </style>
     <script>
-        var opt_flag = false;
-        var check_sckt_flag = false;
-        var check_yk_flag = false;
         //定时刷新任务列表
         Ext.define('Exam', {
             extend: 'Ext.data.Model',
@@ -100,9 +97,9 @@
                 --maxtime;
             }
             else {
-                 opt_flag = true;
                 clearInterval(timer);
-                document.all["exam_status_span"].innerHTML = "<h3>开始考试！</h3>";
+                document.all["exam_status_span"].innerHTML = "";
+                document.getElementById("start_btn").style.display = "block";
             }
         };
         timer = setInterval("CountDown()", 1000);

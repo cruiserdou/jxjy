@@ -42,8 +42,8 @@ var sel_exam_Tpl = [
     '<td>{ks_status}</td>',
     '</tr>',
     '</table>',
-    '<a onclick="examinees_start(\'{status}\');" id="start_btn" href="#">开始考试</a>' +
-    '<span id="exam_status_span" style="color: red;">正在初始化考试系统，请等候...</span>',
+    '<a onclick="examinees_start(\'{status}\');" style="width:80px;;display:none;" id="start_btn"  href="#">开始考试</a><br>' +
+    '<span id="exam_status_span" style="font-size:20px; color: red;">正在初始化考试系统，请等候...</span>',
     '</div>',
     '<div id="img">',
     '<img src="static/upload/{photo}"/>',
@@ -106,33 +106,16 @@ function examinees_start(status) {
             }
         });
     }else {
-        console.log(opt_flag);
-        if (opt_flag == false && check_sckt_flag == false && check_yk_flag == false) {
-            swal("还未到考试时间，请等待...");
-            return
-        }
-        if (opt_flag == true && check_sckt_flag == true) {
-            swal("正在生成考题，请等待...");
-            return
-        }
-        if (opt_flag == true && check_yk_flag == true) {
-            swal("你已提交成绩，不能再次考试！");
-            return
-        }
-
-        //重新设置标志防止重新点击
-        opt_flag = false;
-
+        document.all["exam_status_span"].innerHTML = "正在生成考题，请等待！";
+        document.getElementById("start_btn").style.display = "none";
         Ext.Ajax.request({
             method: "POST",
             url: 'obtain_exam_next_info',
             success: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
                 if (obj.success) {
-                    check_sckt_flag = true;
                     document.location.href = "examed";
                 } else {
-                    check_yk_flag = true;
                     swal({
                         title: "信息提示",
                         text: "您已提交成绩，无法再次考试！",

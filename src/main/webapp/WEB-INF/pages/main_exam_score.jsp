@@ -68,10 +68,20 @@
             },
             autoLoad: true
         });
+
+
       var card="<%=session.getAttribute("card")%>";
 
       function print_trainer_score() {
-          document.location.href="http://192.168.1.251:8080/test_mvc/print?card="+card;
+          var scores="";
+          sdata.each(function(record) {
+              scores=record.get('scores')
+          });
+          if(scores>=60){
+              document.location.href="http://192.168.1.251:8080/test_mvc/print?card="+card;
+          }else{
+              document.location.href="https://www.wwyg.com:8443/jxjy/";
+          }
       }
     </script>
     <script type="text/javascript" src="static/app/app_exam.js"></script>
