@@ -29,6 +29,7 @@ public class ObtainExamNextInfo {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        ResultSet rs_kt = null;
         PreparedStatement pst = null;
 
         DataShop dataShop = new DataShop();
@@ -46,10 +47,14 @@ public class ObtainExamNextInfo {
             conn = DriverManager.getConnection(url, user, password);
             stmt = conn.createStatement();
             int i_num_tj=0;
+            int i_kt_sum=0;
             int i_begin=0;
 
-
-
+            String sql_kt_sum = "select count(*) as num  from   work.questions where qtbh= (select qtbh from work.trainer where card= '"+session.getAttribute("card").toString()+"')";
+            rs_kt = stmt.executeQuery(sql_kt_sum);
+            while (rs_kt.next()) {
+                i_kt_sum = rs_kt.getInt(1);
+            } 
 
             String sql = "select ks_stat,begin  from   work.trainer where card= '"+session.getAttribute("card").toString()+"'";
             rs = stmt.executeQuery(sql);
@@ -76,7 +81,7 @@ public class ObtainExamNextInfo {
 
                     for (int i = 1; i <= 50; i++) {
                         if (i == 1) {
-                            number = new Random().nextInt(150) + 1;   //这是产生1-150的随机数
+                            number = new Random().nextInt(i_kt_sum) + 1;   //这是产生1-150的随机数
                             String sql_insert = "INSERT INTO work.tb_exam_random_kt(  admbh,  qtdt,   qt_num) values(?,?,array[" + number + "])";
                             pst = conn.prepareStatement(sql_insert);
                             pst.setString(1, session.getAttribute("card").toString());
@@ -88,7 +93,7 @@ public class ObtainExamNextInfo {
                             boolean isflag = false;
 
                             for (int g = -1; g < 0; ) {
-                                number = new Random().nextInt(150) + 1;   //这是产生1-150的随机数
+                                number = new Random().nextInt(i_kt_sum) + 1;   //这是产生1-150的随机数
                                 ResultSet rs_check = null;
                                 String sql_check = "SELECT  " + number + " = ANY(qt_num) FROM work.tb_exam_random_kt where  status=1 and admbh = '" + session.getAttribute("card").toString() + "'";
 
