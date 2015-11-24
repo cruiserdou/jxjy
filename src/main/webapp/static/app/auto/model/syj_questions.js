@@ -7,7 +7,7 @@ Ext.define('App.model.syj_questions', {
         {name: 'id'},
         {name: 'qtbh'},
         {name: 'qtnum'},
-        {name: 'question_xwq'},
+        {name: 'question'},
         {name: 'type'},
         {name: 'qt_a'},
         {name: 'qt_b'},

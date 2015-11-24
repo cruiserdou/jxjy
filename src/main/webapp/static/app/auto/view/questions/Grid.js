@@ -17,7 +17,7 @@ Ext.define('App.view.questions.Grid', {
             {text: '考题ID', width: 80, dataIndex: 'id',hidden:true},
             {text: '题本编号', width: 80, dataIndex: 'qtbh'},
             {text: '题号', width: 60, dataIndex: 'qtnum'},
-            {text: '题目', width: 300, dataIndex: 'question_xwq'},
+            {text: '题目', width: 300, dataIndex: 'question'},
             {text: '题型', width: 60, dataIndex: 'type'},
             {text: '答案A', width: 100, dataIndex: 'qt_a'},
             {text: '答案B', width: 100, dataIndex: 'qt_b'},

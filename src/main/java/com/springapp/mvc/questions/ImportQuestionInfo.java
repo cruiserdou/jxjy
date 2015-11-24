@@ -37,8 +37,7 @@ public class ImportQuestionInfo {
     @ResponseBody
     DataShop getShopInJSON(
             HttpServletRequest request,
-                           @RequestParam(value = "file", required = false) MultipartFile file,
-                           @RequestParam(value = "qtbh" , required = false) String qtbh
+            @RequestParam(value = "file", required = false) MultipartFile file
     ) throws Exception {
         DataShop dataShop = new DataShop();
         dataShop.setSuccess(true);
@@ -51,7 +50,7 @@ public class ImportQuestionInfo {
 
             file.transferTo(new File(projectPath + "/" + file.getOriginalFilename()));
         }
-       src_file=projectPath+'/'+file.getOriginalFilename();
+        src_file=projectPath+'/'+file.getOriginalFilename();
         try {
             Class.forName("org.postgresql.Driver").newInstance();
         } catch (Exception e) {
@@ -71,58 +70,48 @@ public class ImportQuestionInfo {
             HSSFCell cell=null;
 
             int totalRow=sheet.getLastRowNum();
-
+            String qtbh = "";
             String qtnum = "";
             String question = "";
-            String type = "";
             String answer = "";
-            double score = 0.0d;
             String remark = "";
             String qt_a = "";
             String qt_b = "";
             String qt_c = "";
             String qt_d = "";
-
             conn = DriverManager.getConnection(url, user, password);
-            String sql = "INSERT INTO work.questions( qtbh, qtnum, question, type,  qt_a,  qt_b, qt_c, qt_d,answer, score, remark)"+
-                    " values(?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO work.questions( qtbh, qtnum, question, qt_a,  qt_b, qt_c, qt_d,answer)"+
+                    " values(?,?,?,?,?,?,?,?)";
             for(int i=1;i<=totalRow;i++){
                 row = sheet.getRow(i);
-                cell = row.getCell(2);
+                cell = row.getCell(0);
+                qtbh=cell.getRichStringCellValue().toString();
+                cell = row.getCell(1);
                 qtnum=cell.getRichStringCellValue().toString();
-                cell = row.getCell(3);
-                question = cell.getRichStringCellValue().toString();
                 cell = row.getCell(2);
-                type = cell.getRichStringCellValue().toString();
-                cell = row.getCell(5);
+                question = cell.getRichStringCellValue().toString();
+                cell = row.getCell(3);
                 qt_a = cell.getRichStringCellValue().toString();
-                cell = row.getCell(6);
+                cell = row.getCell(4);
                 qt_b = cell.getRichStringCellValue().toString();
-                cell = row.getCell(7);
+                cell = row.getCell(5);
                 qt_c = cell.getRichStringCellValue().toString();
-                cell = row.getCell(8);
+                cell = row.getCell(6);
                 qt_d = cell.getRichStringCellValue().toString();
-                cell = row.getCell(9);
+                cell = row.getCell(7);
                 answer = cell.getRichStringCellValue().toString();
-                cell = row.getCell(10);
-                score = cell.getNumericCellValue();
-                cell = row.getCell(11);
-                remark = cell.getRichStringCellValue().toString();
 
                 pst=conn.prepareStatement(sql);
                 pst.setString(1,qtbh);
                 pst.setInt(2,Integer.parseInt(qtnum));
                 pst.setString(3,question);
-                pst.setInt(4,Integer.parseInt(type));
-                pst.setString(5,qt_a);
-                pst.setString(6,qt_b);
-                pst.setString(7,qt_c);
-                pst.setString(8,qt_d);
-                pst.setString(9,answer);
-                pst.setDouble(10,score);
-                pst.setString(11,remark);
+                pst.setString(4,qt_a);
+                pst.setString(5,qt_b);
+                pst.setString(6,qt_c);
+                pst.setString(7,qt_d);
+                pst.setString(8,answer);
                 pst.executeUpdate();
-           }
+            }
 
         } catch (FileNotFoundException e) {
 

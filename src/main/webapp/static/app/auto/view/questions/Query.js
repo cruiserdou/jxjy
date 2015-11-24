@@ -28,7 +28,7 @@ Ext.define('App.view.questions.Query', {
                                 modal: true,
                                 iconCls: 'icon_import',
                                 width: 350,
-                                height: 300,
+                                height: 200,
                                 border: false,
                                 layout: 'fit',
                                 defaults: {
@@ -51,37 +51,37 @@ Ext.define('App.view.questions.Query', {
                                             xtype: 'textfield'
                                         },
                                         items: [
-                                            {
-                                                anchor: '100%',
-                                                fieldLabel: '题本编号',
-                                                name: 'qtbh',
-                                                id:'qtbh',
-                                                listeners: {
-                                                    "blur": function(field){
-//                                                        alert(field.getValue());
-                                                        Ext.Ajax.request({
-                                                            method: "POST",
-                                                            params: {
-                                                                qtbh: field.getValue()
-                                                            },
-                                                            url: 'checked_qtbh_info',
-                                                            success: function (response,opts) {
-                                                                var obj=Ext.decode(response.responseText);
-                                                                if(!obj.success)
-                                                                {
-                                                                    Ext.Msg.alert("提示", "题本编号已存在，请更换题本编号！");
-                                                                    Ext.getCmp('qtbh').setValue("");
-                                                                }
-
-                                                            },
-                                                            failure: function(form, action){
-                                                                Ext.Msg.alert("失败", "题本编号检验失败!");
-                                                            }
-                                                        });
-                                                    }
-                                                },
-                                                allowBlank:false
-                                            },
+                                            //{
+                                            //    anchor: '100%',
+                                            //    fieldLabel: '题本编号',
+                                            //    name: 'qtbh',
+                                            //    id:'qtbh',
+                                            //    listeners: {
+//                                                    "blur": function(field){
+////                                                        alert(field.getValue());
+//                                                        Ext.Ajax.request({
+//                                                            method: "POST",
+//                                                            params: {
+//                                                                qtbh: field.getValue()
+//                                                            },
+//                                                            url: 'checked_qtbh_info',
+//                                                            success: function (response,opts) {
+//                                                                var obj=Ext.decode(response.responseText);
+//                                                                if(!obj.success)
+//                                                                {
+//                                                                    Ext.Msg.alert("提示", "题本编号已存在，请更换题本编号！");
+//                                                                    Ext.getCmp('qtbh').setValue("");
+//                                                                }
+//
+//                                                            },
+//                                                            failure: function(form, action){
+//                                                                Ext.Msg.alert("失败", "题本编号检验失败!");
+//                                                            }
+//                                                        });
+//                                                    }
+//                                                }
+                                                //allowBlank:false
+                                            //},
                                             {
                                                 anchor: '100%',
                                                 xtype: 'filefield',
@@ -167,22 +167,26 @@ Ext.define('App.view.questions.Query', {
                                                 name: 'id'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 fieldLabel: '题本编号',
                                                 name: 'qtbh'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号',
                                                 name: 'qtnum'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 xtype: 'textarea',
                                                 fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目',
-                                                name: 'question_xwq'
+                                                name: 'question'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 name: 'type',
                                                 fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型',
@@ -194,33 +198,40 @@ Ext.define('App.view.questions.Query', {
                                                 valueField: 'fieldval',
                                                 displayField: 'fieldvaldis'
                                             }, {
+                                                allowBlank: false,
                                                 anchor: '100%',
-                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspB',
+                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspA',
                                                 name: 'qt_a'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
-                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspC',
+                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspB',
                                                 name: 'qt_b'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
-                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspD',
+                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspC',
                                                 name: 'qt_c'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
-                                                fieldLabel: '答&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案',
+                                                fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspD',
                                                 name: 'qt_d'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 fieldLabel: '答&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案',
                                                 name: 'answer'
                                             },
                                             {
+                                                allowBlank: false,
                                                 anchor: '100%',
                                                 fieldLabel: '分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp值',
+                                                xtype: 'numberfield',
                                                 name: 'score'
                                             },
                                             {
@@ -300,23 +311,25 @@ Ext.define('App.view.questions.Query', {
                                     name: 'id'
                                 },
                                 {
+                                    allowBlank: false,
                                     anchor: '100%',
                                     fieldLabel: '题本编号',
                                     name: 'qtbh'
                                 },
                                 {
+                                    allowBlank: false,
                                     anchor: '100%',
                                     fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号',
                                     name: 'qtnum'
                                 },
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
                                     xtype: 'textarea',
                                     fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目',
-                                    name: 'question_xwq'
+                                    name: 'question'
                                 },
 
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
                                     name: 'type',
                                     fieldLabel: '题&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型',
@@ -328,34 +341,35 @@ Ext.define('App.view.questions.Query', {
                                     valueField: 'fieldval',
                                     displayField: 'fieldvaldis'
                                 },
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
                                     fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspA',
-                                    name: 'answer'
-                                },
-                                {
-                                    anchor: '100%',
-                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspB',
                                     name: 'qt_a'
                                 },
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
-                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspC',
+                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspB',
                                     name: 'qt_b'
                                 },
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
-                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspD',
+                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspC',
                                     name: 'qt_c'
                                 },
-                                {
+                                {  allowBlank: false,
                                     anchor: '100%',
-                                    fieldLabel: '答&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案',
+                                    fieldLabel: '答&nbsp&nbsp&nbsp案&nbsp&nbsp&nbspD',
                                     name: 'qt_d'
                                 },
-                                {
+                                {  allowBlank: false,
+                                    anchor: '100%',
+                                    fieldLabel: '答&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp案',
+                                    name: 'answer'
+                                },
+                                {  allowBlank: false,
                                     anchor: '100%',
                                     fieldLabel: '分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp值',
+                                    xtype: 'numberfield',
                                     name: 'score'
                                 },
                                 {

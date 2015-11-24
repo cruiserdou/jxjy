@@ -27,7 +27,7 @@ public class UpdateQuestionsInfo {
     DataShop getShopInJSON(
             @RequestParam("qtbh") String qtbh,
             @RequestParam("qtnum") Integer qtnum,
-            @RequestParam("question_xwq") String question,
+            @RequestParam("question") String question,
             @RequestParam("type") Integer type,
             @RequestParam("answer") String answer,
             @RequestParam("qt_a") String qt_a,

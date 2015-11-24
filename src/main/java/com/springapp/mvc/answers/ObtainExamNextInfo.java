@@ -54,7 +54,7 @@ public class ObtainExamNextInfo {
             rs_kt = stmt.executeQuery(sql_kt_sum);
             while (rs_kt.next()) {
                 i_kt_sum = rs_kt.getInt(1);
-            } 
+            }
 
             String sql = "select ks_stat,begin  from   work.trainer where card= '"+session.getAttribute("card").toString()+"'";
             rs = stmt.executeQuery(sql);

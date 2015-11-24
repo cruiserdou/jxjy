@@ -46,7 +46,6 @@ Ext.define('App.view.nextexam.Query', {
                     //value: '基本信息',
                     listeners: {
                         change: function (_this, newValue) {
-                            //alert(Ext.getCmp('drvschool_id').getValue());
                             var store = Ext.getCmp('grid_nextexam_trainer').getStore();
                             store.load({
                                 params: {
